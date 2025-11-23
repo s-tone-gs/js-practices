@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 import dayjs from "dayjs";
 import "dayjs/locale/en.js";
 import localeData from "dayjs/plugin/localeData.js";
