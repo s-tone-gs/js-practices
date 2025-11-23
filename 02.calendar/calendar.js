@@ -18,8 +18,8 @@ var end_day = dayjs_object.endOf("month");
 
 const MONTH_CELL_LENGTH = 12;
 const YEAR_CELL_LENGTH = 8;
-const WEEKDAY_CELL_LENGTH = 3;
-const DAY_CELL_LENGTH = 3;
+const WEEKDAY_CELL_LENGTH = 2;
+const DAY_CELL_LENGTH = 2;
 
 process.stdout.write(
   dayjs_object.format("MMMM").padStart(MONTH_CELL_LENGTH, " "),
@@ -32,20 +32,24 @@ dayjs_object
   .weekdaysMin()
   .forEach((weekday) => {
     process.stdout.write(weekday.padStart(WEEKDAY_CELL_LENGTH, " "));
+    process.stdout.write(" ");
   });
 
 console.log();
 
 for (let i = 0; i < start_day.day(); i++) {
   process.stdout.write(" ".repeat(DAY_CELL_LENGTH));
+  process.stdout.write(" ");
 }
 
 for (let i = start_day.format("D"); i <= end_day.format("D"); i++) {
   let targetDay = dayjs_object.date(i);
   if (targetDay.day() == 6) {
-    console.log(targetDay.format("D").padStart(DAY_CELL_LENGTH, " "));
+    process.stdout.write(targetDay.format("D").padStart(DAY_CELL_LENGTH, " "));
+    console.log(" ");
   } else {
     process.stdout.write(targetDay.format("D").padStart(DAY_CELL_LENGTH, " "));
+    process.stdout.write(" ");
   }
 }
 
