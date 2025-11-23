@@ -30,9 +30,9 @@ dayjs.extend(localeData);
 dayjs_object
   .localeData()
   .weekdaysMin()
-  .forEach((weekday) =>
-    process.stdout.write(weekday.padStart(WEEKDAY_CELL_LENGTH, " ")),
-  );
+  .forEach((weekday) => {
+    process.stdout.write(weekday.padStart(WEEKDAY_CELL_LENGTH, " "));
+  });
 
 console.log("");
 
