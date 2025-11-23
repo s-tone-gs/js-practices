@@ -34,7 +34,7 @@ dayjs_object
     process.stdout.write(weekday.padStart(WEEKDAY_CELL_LENGTH, " "));
   });
 
-console.log("");
+console.log();
 
 for (let i = 0; i < start_day.day(); i++) {
   process.stdout.write(" ".repeat(DAY_CELL_LENGTH));
@@ -49,4 +49,4 @@ for (let i = start_day.format("D"); i <= end_day.format("D"); i++) {
   }
 }
 
-console.log("");
+console.log();
