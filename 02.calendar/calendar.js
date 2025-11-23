@@ -12,36 +12,36 @@ const TARGET_MONTH = Object.hasOwn(ARGS, "m")
   : dayjs();
 const START_DAY = TARGET_MONTH.startOf("month");
 const END_DAY = TARGET_MONTH.endOf("month");
-const MONTH_SELL_LENGTH = 12;
-const YEAR_SELL_LENGTH = 8;
-const WEEKDAY_SELL_LENGTH = 3;
-const DAY_SELL_LENGTH = 3;
+const MONTH_CELL_LENGTH = 12;
+const YEAR_CELL_LENGTH = 8;
+const WEEKDAY_CELL_LENGTH = 3;
+const DAY_CELL_LENGTH = 3;
 
 process.stdout.write(
-  TARGET_MONTH.format("MMMM").padStart(MONTH_SELL_LENGTH, " "),
+  TARGET_MONTH.format("MMMM").padStart(MONTH_CELL_LENGTH, " "),
 );
-console.log(TARGET_MONTH.format(" YYYY").padEnd(YEAR_SELL_LENGTH, " "));
+console.log(TARGET_MONTH.format(" YYYY").padEnd(YEAR_CELL_LENGTH, " "));
 
 dayjs.extend(localeData);
 dayjs()
   .localeData()
   .weekdaysMin()
   .forEach((weekday) =>
-    process.stdout.write(weekday.padStart(WEEKDAY_SELL_LENGTH, " ")),
+    process.stdout.write(weekday.padStart(WEEKDAY_CELL_LENGTH, " ")),
   );
 
 console.log("");
 
 for (let i = 0; i < START_DAY.day(); i++) {
-  process.stdout.write(" ".repeat(DAY_SELL_LENGTH));
+  process.stdout.write(" ".repeat(DAY_CELL_LENGTH));
 }
 
 for (let i = START_DAY.format("D"); i <= END_DAY.format("D"); i++) {
   let targetDay = dayjs(`${YEAR}/${TARGET_MONTH.format("M")}/${i}`);
   if (targetDay.day() == 6) {
-    console.log(targetDay.format("D").padStart(DAY_SELL_LENGTH, " "));
+    console.log(targetDay.format("D").padStart(DAY_CELL_LENGTH, " "));
   } else {
-    process.stdout.write(targetDay.format("D").padStart(DAY_SELL_LENGTH, " "));
+    process.stdout.write(targetDay.format("D").padStart(DAY_CELL_LENGTH, " "));
   }
 }
 
