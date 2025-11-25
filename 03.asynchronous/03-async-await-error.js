@@ -1,0 +1,22 @@
+import { openDatabasePromise } from "./database-helper.js";
+
+async function main() {
+  var db = await openDatabasePromise(":memory:");
+  await db.runPromise(
+    "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
+  );
+  try {
+    var record = await db.runPromise("INSERT INTO books (title) VALUES (null)");
+    console.log(`自動採番されたID:${record.lastID}`);
+  } catch (err) {
+    console.log(err.message);
+  }
+  try {
+    var result = await db.getPromise("SELECT * FROM hogehoge LIMIT 1");
+    console.log(`取得したレコード id:${result.id}, title: ${result.title}`);
+  } catch (err) {
+    console.log(err.message);
+  }
+  await db.runPromise("DROP TABLE books");
+}
+main();
