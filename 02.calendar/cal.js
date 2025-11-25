@@ -3,6 +3,7 @@
 import dayjs from "dayjs";
 import "dayjs/locale/en.js";
 import localeData from "dayjs/plugin/localeData.js";
+dayjs.extend(localeData);
 import minimist from "minimist";
 
 dayjs.locale("en");
@@ -28,7 +29,6 @@ process.stdout.write(
 );
 console.log(dayjs_object.format(" YYYY").padEnd(YEAR_CELL_LENGTH, " "));
 
-dayjs.extend(localeData);
 dayjs_object
   .localeData()
   .weekdaysMin()
