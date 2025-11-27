@@ -8,8 +8,8 @@ import minimist from "minimist";
 
 dayjs.locale("en");
 
-var args = minimist(process.argv.slice(2));
-var dayjs_object = dayjs();
+let args = minimist(process.argv.slice(2));
+let dayjs_object = dayjs();
 if (Object.hasOwn(args, "y")) {
   dayjs_object = dayjs_object.year(args["y"]);
 }
@@ -17,8 +17,8 @@ if (Object.hasOwn(args, "m")) {
   // monthはゼロインデックス(0~11)だが、引数は1~12を受け取るため-1している
   dayjs_object = dayjs_object.month(args["m"] - 1);
 }
-var start_day = dayjs_object.startOf("month");
-var end_day = dayjs_object.endOf("month");
+let start_day = dayjs_object.startOf("month");
+let end_day = dayjs_object.endOf("month");
 
 const MONTH_CELL_LENGTH = 12;
 const YEAR_CELL_LENGTH = 8;
