@@ -24,7 +24,8 @@ const WEEKDAY_CELL_LENGTH = 2;
 const DAY_CELL_LENGTH = 2;
 
 process.stdout.write(dateTime.format("MMMM").padStart(MONTH_CELL_LENGTH, " "));
-console.log(dateTime.format(" YYYY").padEnd(YEAR_CELL_LENGTH, " "));
+process.stdout.write(" ");
+console.log(dateTime.format("YYYY").padEnd(YEAR_CELL_LENGTH, " "));
 
 dateTime
   .localeData()
