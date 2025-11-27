@@ -14,7 +14,8 @@ if (Object.hasOwn(args, "y")) {
   dayjs_object = dayjs_object.year(args["y"]);
 }
 if (Object.hasOwn(args, "m")) {
-  dayjs_object = dayjs_object.month(args["m"]);
+  // monthはゼロインデックス(0~11)だが、引数は1~12を受け取るため-1している
+  dayjs_object = dayjs_object.month(args["m"] - 1);
 }
 var start_day = dayjs_object.startOf("month");
 var end_day = dayjs_object.endOf("month");
