@@ -10,12 +10,12 @@ dayjs.locale("en");
 
 let args = minimist(process.argv.slice(2));
 let dateTime = dayjs();
-if (Object.hasOwn(args, "y")) {
-  dateTime = dateTime.year(args["y"]);
+if (args.y) {
+  dateTime = dateTime.year(args.y);
 }
-if (Object.hasOwn(args, "m")) {
+if (args.m) {
   // monthはゼロインデックス(0~11)だが、引数は1~12を受け取るため-1している
-  dateTime = dateTime.month(args["m"] - 1);
+  dateTime = dateTime.month(args.m - 1);
 }
 
 const MONTH_CELL_LENGTH = 12;
