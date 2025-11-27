@@ -32,7 +32,7 @@ dateTime
   .weekdaysMin()
   .forEach((weekday) => {
     process.stdout.write(weekday.padStart(WEEKDAY_CELL_LENGTH, " "));
-    process.stdout.write(" ");
+    weekday !== "Sa" && process.stdout.write(" ");
   });
 
 console.log();
@@ -50,7 +50,7 @@ for (let i = startDay.format("D"); i <= endDay.format("D"); i++) {
   let targetDay = dateTime.date(i);
   if (targetDay.day() == 6) {
     process.stdout.write(targetDay.format("D").padStart(DAY_CELL_LENGTH, " "));
-    console.log(" ");
+    console.log();
   } else {
     process.stdout.write(targetDay.format("D").padStart(DAY_CELL_LENGTH, " "));
     process.stdout.write(" ");
