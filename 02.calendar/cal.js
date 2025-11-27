@@ -17,8 +17,6 @@ if (Object.hasOwn(args, "m")) {
   // monthはゼロインデックス(0~11)だが、引数は1~12を受け取るため-1している
   dateTime = dateTime.month(args["m"] - 1);
 }
-let start_day = dateTime.startOf("month");
-let end_day = dateTime.endOf("month");
 
 const MONTH_CELL_LENGTH = 12;
 const YEAR_CELL_LENGTH = 8;
@@ -38,12 +36,16 @@ dateTime
 
 console.log();
 
-for (let i = 0; i < start_day.day(); i++) {
+let startDay = dateTime.startOf("month");
+
+for (let i = 0; i < startDay.day(); i++) {
   process.stdout.write(" ".repeat(DAY_CELL_LENGTH));
   process.stdout.write(" ");
 }
 
-for (let i = start_day.format("D"); i <= end_day.format("D"); i++) {
+let endDay = dateTime.endOf("month");
+
+for (let i = startDay.format("D"); i <= endDay.format("D"); i++) {
   let targetDay = dateTime.date(i);
   if (targetDay.day() == 6) {
     process.stdout.write(targetDay.format("D").padStart(DAY_CELL_LENGTH, " "));
