@@ -1,6 +1,6 @@
 import { openDatabasePromise } from "./database-helper.js";
 
-var db;
+let db;
 openDatabasePromise(":memory:")
   .then((result) => {
     db = result;
