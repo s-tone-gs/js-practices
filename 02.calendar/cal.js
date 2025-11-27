@@ -18,14 +18,16 @@ if (args.m) {
   dateTime = dateTime.month(args.m - 1);
 }
 
-const MONTH_CELL_LENGTH = 12;
-const YEAR_CELL_LENGTH = 8;
+const MONTH_HEADER_LENGTH = 12;
+const YEAR_HEADER_LENGTH = 8;
 const WEEKDAY_CELL_LENGTH = 2;
 const DAY_CELL_LENGTH = 2;
 
-process.stdout.write(dateTime.format("MMMM").padStart(MONTH_CELL_LENGTH, " "));
+process.stdout.write(
+  dateTime.format("MMMM").padStart(MONTH_HEADER_LENGTH, " "),
+);
 process.stdout.write(" ");
-console.log(dateTime.format("YYYY").padEnd(YEAR_CELL_LENGTH, " "));
+console.log(dateTime.format("YYYY").padEnd(YEAR_HEADER_LENGTH, " "));
 
 dateTime
   .localeData()
