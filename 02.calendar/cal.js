@@ -3,9 +3,9 @@
 import dayjs from "dayjs";
 import "dayjs/locale/en.js";
 import localeData from "dayjs/plugin/localeData.js";
-dayjs.extend(localeData);
 import minimist from "minimist";
 
+dayjs.extend(localeData);
 dayjs.locale("en");
 
 let args = minimist(process.argv.slice(2));
