@@ -48,7 +48,7 @@ for (let i = 0; i < startDay.day(); i++) {
 
 let endDay = dateTime.endOf("month");
 
-for (let i = startDay.format("D"); i <= endDay.format("D"); i++) {
+for (let i = startDay.date(); i <= endDay.date(); i++) {
   let targetDay = dateTime.date(i);
   if (targetDay.day() == 6) {
     process.stdout.write(targetDay.format("D").padStart(DAY_CELL_LENGTH, " "));
