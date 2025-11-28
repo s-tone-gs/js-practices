@@ -10,16 +10,21 @@ await runPromise(
   "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
 );
 try {
-  let record = await runPromise(db, "INSERT INTO books (title) VALUES (null)");
-  console.log(`自動採番されたID:${record.lastID}`);
+  let historyOfChanges = await runPromise(
+    db,
+    "INSERT INTO books (title) VALUES (null)",
+  );
+  console.log(`自動採番されたID:${historyOfChanges.lastID}`);
 } catch (err) {
   if (err.errno === 19) {
     console.error(err.message);
   }
 }
 try {
-  let result = await getPromise(db, "SELECT * FROM book LIMIT 1");
-  console.log(`取得したレコード id:${result.id}, title: ${result.title}`);
+  let retrievedBook = await getPromise(db, "SELECT * FROM book LIMIT 1");
+  console.log(
+    `取得したレコード id:${retrievedBook.id}, title: ${retrievedBook.title}`,
+  );
 } catch (err) {
   if (err.errno === 1) {
     console.error(err.message);

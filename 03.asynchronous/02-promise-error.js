@@ -6,23 +6,25 @@ import {
 
 let db;
 openDatabasePromise(":memory:")
-  .then((result) => {
-    db = result;
+  .then((Connected) => {
+    db = Connected;
     return runPromise(
       db,
       "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
     );
   })
   .then(() => runPromise(db, "INSERT INTO books (title) VALUES (null)"))
-  .then((record) => {
-    console.log(`自動採番されたID:${record.lastID}`);
+  .then((historyOfChanges) => {
+    console.log(`自動採番されたID:${historyOfChanges.lastID}`);
   })
   .catch((err) => {
     console.error(err.message);
   })
   .then(() => getPromise(db, "SELECT * FROM book LIMIT 1"))
-  .then((result) => {
-    console.log(`取得したレコード id:${result.id}, title: ${result.title}`);
+  .then((retrievedBook) => {
+    console.log(
+      `取得したレコード id:${retrievedBook.id}, title: ${retrievedBook.title}`,
+    );
   })
   .catch((err) => {
     console.error(err.message);
