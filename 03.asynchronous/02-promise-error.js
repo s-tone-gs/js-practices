@@ -13,24 +13,18 @@ openDatabasePromise(":memory:")
       "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
     );
   })
-  .then(() => {
-    return runPromise(db, "INSERT INTO books (title) VALUES (null)");
-  })
+  .then(() => runPromise(db, "INSERT INTO books (title) VALUES (null)"))
   .then((record) => {
     console.log(`自動採番されたID:${record.lastID}`);
   })
   .catch((err) => {
     console.error(err.message);
   })
-  .then(() => {
-    return getPromise(db, "SELECT * FROM book LIMIT 1");
-  })
+  .then(() => getPromise(db, "SELECT * FROM book LIMIT 1"))
   .then((result) => {
     console.log(`取得したレコード id:${result.id}, title: ${result.title}`);
   })
   .catch((err) => {
     console.error(err.message);
   })
-  .then(() => {
-    return runPromise(db, "DROP TABLE books");
-  });
+  .then(() => runPromise(db, "DROP TABLE books"));

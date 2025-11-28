@@ -13,12 +13,12 @@ openDatabasePromise(":memory:")
       "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
     );
   })
-  .then(() => {
-    return runPromise(
+  .then(() =>
+    runPromise(
       db,
       "INSERT INTO books (title) VALUES ('犬でもわかるプログラミング入門')",
-    );
-  })
+    ),
+  )
   .then((record) => {
     console.log(`自動採番されたID:${record.lastID}`);
     return getPromise(db, "SELECT * FROM books LIMIT 1");
