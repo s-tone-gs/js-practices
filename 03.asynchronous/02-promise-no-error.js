@@ -1,21 +1,26 @@
-import { openDatabasePromise } from "./database-helper.js";
+import {
+  openDatabasePromise,
+  runPromise,
+  getPromise,
+} from "./database-helper.js";
 
 let db;
 openDatabasePromise(":memory:")
   .then((result) => {
     db = result;
-    return db.runPromise(
+    return runPromise(
+      db,
       "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
     );
   })
   .then(() => {
-    return db.runPromise("INSERT INTO books (title) VALUES ('test')");
+    return runPromise(db, "INSERT INTO books (title) VALUES ('test')");
   })
   .then((record) => {
     console.log(`自動採番されたID:${record.lastID}`);
-    return db.getPromise("SELECT * FROM books LIMIT 1");
+    return getPromise(db, "SELECT * FROM books LIMIT 1");
   })
   .then((result) => {
     console.log(`取得したレコード id:${result.id}, title: ${result.title}`);
-    return db.runPromise("DROP TABLE books");
+    return runPromise(db, "DROP TABLE books");
   });
