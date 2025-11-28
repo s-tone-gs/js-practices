@@ -10,7 +10,7 @@ let db = new sqlite3.Database(":memory:", () => {
         } else {
           console.log(`自動採番された ID: ${this.lastID}`);
         }
-        db.get("SELECT * FROM hogehoge LIMIT 1", function (err, result) {
+        db.get("SELECT * FROM book LIMIT 1", function (err, result) {
           if (err) {
             console.log(err.message);
           } else {

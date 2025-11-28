@@ -18,7 +18,7 @@ try {
   }
 }
 try {
-  let result = await getPromise(db, "SELECT * FROM hogehoge LIMIT 1");
+  let result = await getPromise(db, "SELECT * FROM book LIMIT 1");
   console.log(`取得したレコード id:${result.id}, title: ${result.title}`);
 } catch (err) {
   if (err.errno === 1) {

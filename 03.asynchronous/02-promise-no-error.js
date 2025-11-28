@@ -14,7 +14,10 @@ openDatabasePromise(":memory:")
     );
   })
   .then(() => {
-    return runPromise(db, "INSERT INTO books (title) VALUES ('test')");
+    return runPromise(
+      db,
+      "INSERT INTO books (title) VALUES ('犬でもわかるプログラミング入門')",
+    );
   })
   .then((record) => {
     console.log(`自動採番されたID:${record.lastID}`);

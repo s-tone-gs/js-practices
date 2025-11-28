@@ -23,7 +23,7 @@ openDatabasePromise(":memory:")
     console.log(err.message);
   })
   .then(() => {
-    return getPromise(db, "SELECT * FROM hogehoge LIMIT 1");
+    return getPromise(db, "SELECT * FROM book LIMIT 1");
   })
   .then((result) => {
     console.log(`取得したレコード id:${result.id}, title: ${result.title}`);
