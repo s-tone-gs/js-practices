@@ -48,8 +48,12 @@ for (let i = 0; i < startDay.day(); i++) {
 
 let endDay = dateTime.endOf("month");
 
-for (let i = startDay.date(); i <= endDay.date(); i++) {
-  let targetDay = dateTime.date(i);
+// ms単位で比較されるのでtargetDay.isBefore(endDay)は最終日もtrueを返し、必要な回数ループを行ってくれる
+for (
+  let targetDay = startDay;
+  targetDay.isBefore(endDay);
+  targetDay = targetDay.add(1, "d")
+) {
   if (targetDay.day() == 6) {
     process.stdout.write(targetDay.format("D").padStart(DAY_CELL_LENGTH, " "));
     console.log();
