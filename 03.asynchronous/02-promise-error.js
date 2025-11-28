@@ -20,7 +20,7 @@ openDatabasePromise(":memory:")
     console.log(`自動採番されたID:${record.lastID}`);
   })
   .catch((err) => {
-    console.log(err.message);
+    console.error(err.message);
   })
   .then(() => {
     return getPromise(db, "SELECT * FROM book LIMIT 1");
@@ -29,7 +29,7 @@ openDatabasePromise(":memory:")
     console.log(`取得したレコード id:${result.id}, title: ${result.title}`);
   })
   .catch((err) => {
-    console.log(err.message);
+    console.error(err.message);
   })
   .then(() => {
     return runPromise(db, "DROP TABLE books");

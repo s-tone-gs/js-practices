@@ -14,7 +14,7 @@ try {
   console.log(`自動採番されたID:${record.lastID}`);
 } catch (err) {
   if (err.errno === 19) {
-    console.log(err.message);
+    console.error(err.message);
   }
 }
 try {
@@ -22,7 +22,7 @@ try {
   console.log(`取得したレコード id:${result.id}, title: ${result.title}`);
 } catch (err) {
   if (err.errno === 1) {
-    console.log(err.message);
+    console.error(err.message);
   }
 }
 await runPromise(db, "DROP TABLE books");
