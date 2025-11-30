@@ -8,7 +8,7 @@ import minimist from "minimist";
 dayjs.extend(localeData);
 dayjs.locale("en");
 
-let args = minimist(process.argv.slice(2));
+const args = minimist(process.argv.slice(2));
 let dateTime = dayjs();
 if (args.y) {
   dateTime = dateTime.year(args.y);
@@ -39,14 +39,14 @@ dateTime
 
 console.log();
 
-let startDay = dateTime.startOf("month");
+const startDay = dateTime.startOf("month");
 
 for (let i = 0; i < startDay.day(); i++) {
   process.stdout.write(" ".repeat(DAY_CELL_LENGTH));
   process.stdout.write(" ");
 }
 
-let endDay = dateTime.endOf("month");
+const endDay = dateTime.endOf("month");
 
 // ms単位で比較されるのでtargetDay.isBefore(endDay)は最終日もtrueを返し、必要な回数ループを行ってくれる
 for (
