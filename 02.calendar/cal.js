@@ -29,7 +29,7 @@ const YearHeaderLength =
   FourDigitYear.length;
 const DAY_CELL_LENGTH = 2;
 
-// Headerの描画
+// ここからHeaderの描画
 const rightAlignedFullMonthName = FullMonthName.padStart(
   monthHeaderLength,
   " ",
@@ -41,7 +41,7 @@ process.stdout.write(" ");
 const leftAlignedFourDigitYear = FourDigitYear.padEnd(YearHeaderLength, " ");
 console.log(leftAlignedFourDigitYear);
 
-// Bodyの描画
+// ここからBodyの描画
 dateForRenderHeaderAndBody
   .localeData()
   .weekdaysMin()
