@@ -20,7 +20,6 @@ if (args.m) {
 
 const MONTH_HEADER_LENGTH = 12;
 const YEAR_HEADER_LENGTH = 8;
-const WEEKDAY_CELL_LENGTH = 2;
 const DAY_CELL_LENGTH = 2;
 
 const rightAlignedFullMonthName = dateTime
@@ -38,9 +37,9 @@ console.log(leftAlignedFourDigitYear);
 dateTime
   .localeData()
   .weekdaysMin()
-  .forEach((weekday) => {
-    process.stdout.write(weekday.padStart(WEEKDAY_CELL_LENGTH, " "));
-    if (weekday !== "Sa") {
+  .forEach((TheMinNameOfweekday) => {
+    process.stdout.write(TheMinNameOfweekday);
+    if (TheMinNameOfweekday !== "Sa") {
       process.stdout.write(" ");
     }
   });
