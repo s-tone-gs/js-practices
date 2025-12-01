@@ -18,20 +18,26 @@ if (args.m) {
   dateTime = dateTime.month(args.m - 1);
 }
 
-const MONTH_HEADER_LENGTH = 12;
-const YEAR_HEADER_LENGTH = 8;
+const FullMonthName = dateTime.format("MMMM");
+const FourDigitYear = dateTime.format("YYYY");
+const HEADER_LENGTH = 20;
+const monthHeaderLength =
+  (HEADER_LENGTH - (FullMonthName.length + FourDigitYear.length + 1)) / 2 +
+  FullMonthName.length;
+const YearHeaderLength =
+  (HEADER_LENGTH - (FullMonthName.length + FourDigitYear.length + 1)) / 2 +
+  FourDigitYear.length;
 const DAY_CELL_LENGTH = 2;
 
-const rightAlignedFullMonthName = dateTime
-  .format("MMMM")
-  .padStart(MONTH_HEADER_LENGTH, " ");
+const rightAlignedFullMonthName = FullMonthName.padStart(
+  monthHeaderLength,
+  " ",
+);
 process.stdout.write(rightAlignedFullMonthName);
 
 process.stdout.write(" ");
 
-const leftAlignedFourDigitYear = dateTime
-  .format("YYYY")
-  .padEnd(YEAR_HEADER_LENGTH, " ");
+const leftAlignedFourDigitYear = FourDigitYear.padEnd(YearHeaderLength, " ");
 console.log(leftAlignedFourDigitYear);
 
 dateTime
