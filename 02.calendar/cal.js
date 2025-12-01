@@ -65,13 +65,10 @@ for (
   let rightAlignedDayOfTheMonth = targetDay
     .format("D")
     .padStart(DAY_CELL_LENGTH, " ");
+  process.stdout.write(rightAlignedDayOfTheMonth);
   if (targetDay.day() == 6) {
-    process.stdout.write(rightAlignedDayOfTheMonth);
     console.log();
-  } else if (targetDay.date() === endDay.date()) {
-    process.stdout.write(rightAlignedDayOfTheMonth);
-  } else {
-    process.stdout.write(rightAlignedDayOfTheMonth);
+  } else if (targetDay.date() !== endDay.date()) {
     process.stdout.write(" ");
   }
 }
