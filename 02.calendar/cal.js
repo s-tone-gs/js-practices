@@ -23,11 +23,17 @@ const YEAR_HEADER_LENGTH = 8;
 const WEEKDAY_CELL_LENGTH = 2;
 const DAY_CELL_LENGTH = 2;
 
-process.stdout.write(
-  dateTime.format("MMMM").padStart(MONTH_HEADER_LENGTH, " "),
-);
+const rightAlignedFullMonthName = dateTime
+  .format("MMMM")
+  .padStart(MONTH_HEADER_LENGTH, " ");
+process.stdout.write(rightAlignedFullMonthName);
+
 process.stdout.write(" ");
-console.log(dateTime.format("YYYY").padEnd(YEAR_HEADER_LENGTH, " "));
+
+const leftAlignedFourDigitYear = dateTime
+  .format("YYYY")
+  .padEnd(YEAR_HEADER_LENGTH, " ");
+console.log(leftAlignedFourDigitYear);
 
 dateTime
   .localeData()
@@ -44,7 +50,8 @@ console.log();
 const startDay = dateTime.startOf("month");
 
 for (let i = 0; i < startDay.day(); i++) {
-  process.stdout.write(" ".repeat(DAY_CELL_LENGTH));
+  let whiteSpace = " ".repeat(DAY_CELL_LENGTH);
+  process.stdout.write(whiteSpace);
   process.stdout.write(" ");
 }
 
@@ -56,13 +63,16 @@ for (
   targetDay.isBefore(endDay);
   targetDay = targetDay.add(1, "d")
 ) {
+  let rightAlignedDayOfTheMonth = targetDay
+    .format("D")
+    .padStart(DAY_CELL_LENGTH, " ");
   if (targetDay.day() == 6) {
-    process.stdout.write(targetDay.format("D").padStart(DAY_CELL_LENGTH, " "));
+    process.stdout.write(rightAlignedDayOfTheMonth);
     console.log();
   } else if (targetDay.date() === endDay.date()) {
-    process.stdout.write(targetDay.format("D").padStart(DAY_CELL_LENGTH, " "));
+    process.stdout.write(rightAlignedDayOfTheMonth);
   } else {
-    process.stdout.write(targetDay.format("D").padStart(DAY_CELL_LENGTH, " "));
+    process.stdout.write(rightAlignedDayOfTheMonth);
     process.stdout.write(" ");
   }
 }
