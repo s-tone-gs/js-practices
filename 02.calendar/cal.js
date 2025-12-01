@@ -54,29 +54,29 @@ dateForRenderHeaderAndBody
 
 console.log();
 
-const startDay = dateForRenderHeaderAndBody.startOf("month");
+const startDate = dateForRenderHeaderAndBody.startOf("month");
 
-for (let i = 0; i < startDay.day(); i++) {
+for (let i = 0; i < startDate.day(); i++) {
   let whiteSpace = " ".repeat(DAY_CELL_LENGTH);
   process.stdout.write(whiteSpace);
   process.stdout.write(" ");
 }
 
-const endDay = dateForRenderHeaderAndBody.endOf("month");
+const endDate = dateForRenderHeaderAndBody.endOf("month");
 
-// ms単位で比較されるのでtargetDay.isBefore(endDay)は最終日もtrueを返し、必要な回数ループを行ってくれる
+// ms単位で比較されるのでtargetDate.isBefore(endDate)は最終日もtrueを返し、必要な回数ループを行ってくれる
 for (
-  let targetDay = startDay;
-  targetDay.isBefore(endDay);
-  targetDay = targetDay.add(1, "d")
+  let targetDate = startDate;
+  targetDate.isBefore(endDate);
+  targetDate = targetDate.add(1, "d")
 ) {
-  let rightAlignedDayOfTheMonth = targetDay
+  let rightAlignedDayOfTheMonth = targetDate
     .format("D")
     .padStart(DAY_CELL_LENGTH, " ");
   process.stdout.write(rightAlignedDayOfTheMonth);
-  if (targetDay.day() == 6) {
+  if (targetDate.day() == 6) {
     console.log();
-  } else if (targetDay.date() !== endDay.date()) {
+  } else if (targetDate.date() !== endDate.date()) {
     process.stdout.write(" ");
   }
 }
