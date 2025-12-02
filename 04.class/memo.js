@@ -8,7 +8,7 @@ import { stdin as input, stdout as output } from "node:process";
 import { Database } from "./database.js";
 import { Memo } from "./memo-class.js";
 
-var args = minimist(process.argv.slice(2));
+let args = minimist(process.argv.slice(2));
 await Database.connect();
 
 if (args["l"]) {
@@ -22,7 +22,7 @@ if (args["l"]) {
 }
 
 async function index() {
-  var memos = await Database.selectAll();
+  let memos = await Database.selectAll();
   memos.forEach((memo) => {
     console.log(memo.getFirstLine());
   });
@@ -30,7 +30,7 @@ async function index() {
 
 async function create() {
   const rl = readline.createInterface({ input, output });
-  var content = await rl.question("保存するメモの内容を入力してください\n");
+  let content = await rl.question("保存するメモの内容を入力してください\n");
   rl.on("line", (line) => {
     content += `\n${line}`;
   });
@@ -40,37 +40,37 @@ async function create() {
 }
 
 async function show() {
-  var choices = await buildChoices();
+  let choices = await buildChoices();
   if (choices.length === 0) {
     console.log("参照できるメモがありません");
     process.exit();
   }
-  var referableMemos = new Select({
+  let referableMemos = new Select({
     name: "show memos",
     message: "参照したいメモを選んでください",
     choices: choices,
   });
-  var selected = await referableMemos.run();
+  let selected = await referableMemos.run();
   console.log(selected.content);
 }
 
 async function destroy() {
-  var choices = await buildChoices();
+  let choices = await buildChoices();
   if (choices.length === 0) {
     console.log("削除できるメモがありません");
     process.exit();
   }
-  var deletableMemos = new Select({
+  let deletableMemos = new Select({
     name: "destroy memos",
     message: "削除したいメモを選んでください",
     choices: choices,
   });
-  var selected = await deletableMemos.run();
+  let selected = await deletableMemos.run();
   Database.delete(selected);
 }
 
 async function buildChoices() {
-  var memos = await Database.selectAll();
+  let memos = await Database.selectAll();
   return memos.map((memo) => {
     return { message: memo.getFirstLine(), value: memo };
   });

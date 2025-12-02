@@ -5,7 +5,7 @@ export class Memo {
   }
 
   getFirstLine() {
-    var lines = this.content.split("\n");
+    let lines = this.content.split("\n");
     return lines[0];
   }
 }
