@@ -40,7 +40,11 @@ async function create() {
 }
 
 async function show() {
-  var choices = buildChoices();
+  var choices = await buildChoices();
+  if (choices.length === 0) {
+    console.log("参照できるメモがありません");
+    process.exit();
+  }
   var referableMemos = new Select({
     name: "show memos",
     message: "参照したいメモを選んでください",
@@ -51,7 +55,11 @@ async function show() {
 }
 
 async function destroy() {
-  var choices = buildChoices();
+  var choices = await buildChoices();
+  if (choices.length === 0) {
+    console.log("削除できるメモがありません");
+    process.exit();
+  }
   var deletableMemos = new Select({
     name: "destroy memos",
     message: "削除したいメモを選んでください",
