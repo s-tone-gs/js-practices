@@ -30,7 +30,17 @@ async function index() {
 
 async function create() {
   const rl = readline.createInterface({ input, output });
-  let content = await rl.question("保存するメモの内容を入力してください\n");
+  let content;
+  try {
+    content = await rl.question("保存するメモの内容を入力してください\n");
+  } catch (err) {
+    if (err instanceof Error && err.code === "ABORT_ERR") {
+      console.log("メモが保存されずに終了しました");
+      process.exit();
+    } else {
+      throw err;
+    }
+  }
   rl.on("line", (line) => {
     content += `\n${line}`;
   });
