@@ -16,8 +16,10 @@ try {
   );
   console.log(`自動採番されたID:${historyOfChanges.lastID}`);
 } catch (err) {
-  if (err.errno === 19) {
+  if (err !== null && err !== undefined && err.code === "SQLITE_CONSTRAINT") {
     console.error(err.message);
+  } else {
+    throw err;
   }
 }
 try {
@@ -26,8 +28,10 @@ try {
     `取得したレコード id:${retrievedBook.id}, title: ${retrievedBook.title}`,
   );
 } catch (err) {
-  if (err.errno === 1) {
+  if (err !== null && err !== undefined && err.code === "SQLITE_ERROR") {
     console.error(err.message);
+  } else {
+    throw err;
   }
 }
 await runPromise(db, "DROP TABLE books");
