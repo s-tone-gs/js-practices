@@ -5,11 +5,11 @@ import enquirer from "enquirer";
 const { Select } = enquirer;
 import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
-import { openDatabasePromise } from "./database.js";
+import { Database } from "./database.js";
 import { Memo } from "./memo-class.js";
 
 var args = minimist(process.argv.slice(2));
-var db = await openDatabasePromise("memos-store");
+await Database.connect();
 
 if (args["l"]) {
   index();
@@ -22,7 +22,7 @@ if (args["l"]) {
 }
 
 async function index() {
-  var memos = await db.selectAll();
+  var memos = await Database.selectAll();
   memos.forEach((memo) => {
     console.log(memo.getFirstLine());
   });
@@ -35,7 +35,7 @@ async function create() {
     content += `\n${line}`;
   });
   rl.on("close", async () => {
-    await db.insert(new Memo({ content: content }));
+    await Database.insert(new Memo({ content: content }));
   });
 }
 
@@ -58,11 +58,11 @@ async function destroy() {
     choices: choices,
   });
   var selected = await deletableMemos.run();
-  db.delete(selected);
+  Database.delete(selected);
 }
 
 async function buildChoices() {
-  var memos = await db.selectAll();
+  var memos = await Database.selectAll();
   return memos.map((memo) => {
     return { message: memo.getFirstLine(), value: memo };
   });

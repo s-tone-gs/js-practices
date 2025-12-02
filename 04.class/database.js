@@ -1,27 +1,51 @@
 import sqlite3 from "sqlite3";
 import { Memo } from "./memo-class.js";
 
-class MemoDatabase extends sqlite3.Database {
-  async selectAll() {
-    var memos = await this.allPromise("SELECT * FROM memos");
+export class Database {
+  static FILE_NAME = "memos-store";
+  static #connected;
+
+  static async connect() {
+    this.#connected = await new Promise((resolve) => {
+      let db = new sqlite3.Database(this.FILE_NAME, () => {
+        resolve(db);
+      });
+    });
+    if (!(await this.#isTableExists())) {
+      await this.#createTable();
+    }
+  }
+
+  static async selectAll() {
+    let memos = await this.#allPromise("SELECT * FROM memos");
     return memos.map(
       (memo) => new Memo({ id: memo.id, content: memo.content }),
     );
   }
-  async delete(memoInstance) {
-    return await this.runPromise("DELETE FROM memos WHERE id = ?", [
-      memoInstance.id,
-    ]);
+  static async delete(memo) {
+    return await this.#runPromise("DELETE FROM memos WHERE id = ?", [memo.id]);
   }
-  async insert(memoInstance) {
-    return await this.runPromise("INSERT INTO memos (content) VALUES (?)", [
-      memoInstance.content,
+  static async insert(memo) {
+    return await this.#runPromise("INSERT INTO memos (content) VALUES (?)", [
+      memo.content,
     ]);
   }
 
-  runPromise(...args) {
+  static async #isTableExists() {
+    return await this.#getPromise(
+      "SELECT * FROM sqlite_master WHERE type='table' AND name='memos'",
+    );
+  }
+
+  static async #createTable() {
+    await this.#runPromise(
+      "CREATE TABLE memos (id INTEGER PRIMARY KEY, content text NOT NULL)",
+    );
+  }
+
+  static #runPromise(...args) {
     return new Promise((resolve, reject) => {
-      this.run(...args, function (err) {
+      this.#connected.run(...args, function (err) {
         if (err) {
           reject(err);
         } else {
@@ -31,9 +55,9 @@ class MemoDatabase extends sqlite3.Database {
     });
   }
 
-  getPromise(...args) {
+  static #getPromise(...args) {
     return new Promise((resolve, reject) => {
-      this.get(...args, function (err, row) {
+      this.#connected.get(...args, function (err, row) {
         if (err) {
           reject(err);
         } else {
@@ -43,9 +67,9 @@ class MemoDatabase extends sqlite3.Database {
     });
   }
 
-  allPromise(...args) {
+  static #allPromise(...args) {
     return new Promise((resolve, reject) => {
-      this.all(...args, function (err, row) {
+      this.#connected.all(...args, function (err, row) {
         if (err) {
           reject(err);
         } else {
@@ -54,12 +78,4 @@ class MemoDatabase extends sqlite3.Database {
       });
     });
   }
-}
-
-export function openDatabasePromise(...args) {
-  return new Promise((resolve) => {
-    var db = new MemoDatabase(...args, () => {
-      resolve(db);
-    });
-  });
 }
