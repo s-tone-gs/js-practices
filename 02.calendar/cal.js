@@ -52,7 +52,7 @@ console.log();
 const startDate = seedDate.startOf("month");
 
 for (let i = 0; i < startDate.day(); i++) {
-  let whiteSpaces = " ".repeat(DAY_CELL_LENGTH);
+  const whiteSpaces = " ".repeat(DAY_CELL_LENGTH);
   process.stdout.write(whiteSpaces);
   process.stdout.write(" ");
 }
@@ -65,7 +65,7 @@ for (
   targetDate.isBefore(endDate);
   targetDate = targetDate.add(1, "d")
 ) {
-  let rightAlignedDayOfTheMonth = targetDate
+  const rightAlignedDayOfTheMonth = targetDate
     .format("D")
     .padStart(DAY_CELL_LENGTH, " ");
   process.stdout.write(rightAlignedDayOfTheMonth);
