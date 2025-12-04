@@ -52,8 +52,8 @@ console.log();
 const startDate = seedDate.startOf("month");
 
 for (let i = 0; i < startDate.day(); i++) {
-  let whiteSpace = " ".repeat(DAY_CELL_LENGTH);
-  process.stdout.write(whiteSpace);
+  let whiteSpaces = " ".repeat(DAY_CELL_LENGTH);
+  process.stdout.write(whiteSpaces);
   process.stdout.write(" ");
 }
 
