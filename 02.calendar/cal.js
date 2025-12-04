@@ -18,28 +18,23 @@ if (args.m) {
   seedDate = seedDate.month(args.m - 1);
 }
 
-const FullMonthName = seedDate.format("MMMM");
-const FourDigitYear = seedDate.format("YYYY");
+const monthName = seedDate.format("MMMM");
+const year = seedDate.format("YYYY");
 const HEADER_LENGTH = 20;
 const monthHeaderLength =
-  (HEADER_LENGTH - (FullMonthName.length + FourDigitYear.length + 1)) / 2 +
-  FullMonthName.length;
-const YearHeaderLength =
-  (HEADER_LENGTH - (FullMonthName.length + FourDigitYear.length + 1)) / 2 +
-  FourDigitYear.length;
+  (HEADER_LENGTH - (monthName.length + year.length + 1)) / 2 + monthName.length;
+const yearHeaderLength =
+  (HEADER_LENGTH - (monthName.length + year.length + 1)) / 2 + year.length;
 const DAY_CELL_LENGTH = 2;
 
 // ここからHeaderの描画
-const rightAlignedFullMonthName = FullMonthName.padStart(
-  monthHeaderLength,
-  " ",
-);
-process.stdout.write(rightAlignedFullMonthName);
+const rightAlignedMonthName = monthName.padStart(monthHeaderLength, " ");
+process.stdout.write(rightAlignedMonthName);
 
 process.stdout.write(" ");
 
-const leftAlignedFourDigitYear = FourDigitYear.padEnd(YearHeaderLength, " ");
-console.log(leftAlignedFourDigitYear);
+const leftAlignedYear = year.padEnd(yearHeaderLength, " ");
+console.log(leftAlignedYear);
 
 // ここからBodyの描画
 seedDate
