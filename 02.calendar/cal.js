@@ -40,9 +40,9 @@ console.log(leftAlignedYear);
 seedDate
   .localeData()
   .weekdaysMin()
-  .forEach((TheMinNameOfweekday) => {
-    process.stdout.write(TheMinNameOfweekday);
-    if (TheMinNameOfweekday !== "Sa") {
+  .forEach((minNameOfWeekday) => {
+    process.stdout.write(minNameOfWeekday);
+    if (minNameOfWeekday !== "Sa") {
       process.stdout.write(" ");
     }
   });
