@@ -47,8 +47,12 @@ function buildBody(seedDate) {
   }
 
   const endDate = seedDate.endOf("month");
-  for (let day = startDate.date(); day <= endDate.date(); day++) {
-    const rightAlignedDay = day.toString().padStart(dayCellLength, " ");
+  for (
+    let dayOfMonth = startDate.date();
+    dayOfMonth <= endDate.date();
+    dayOfMonth++
+  ) {
+    const rightAlignedDay = dayOfMonth.toString().padStart(dayCellLength, " ");
     calendarGridValues.push(rightAlignedDay);
   }
 
