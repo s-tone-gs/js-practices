@@ -9,17 +9,17 @@ dayjs.extend(localeData);
 dayjs.locale("en");
 
 const args = minimist(process.argv.slice(2));
-let dateForRenderHeaderAndBody = dayjs();
+let seedDate = dayjs();
 if (args.y) {
-  dateForRenderHeaderAndBody = dateForRenderHeaderAndBody.year(args.y);
+  seedDate = seedDate.year(args.y);
 }
 if (args.m) {
   // monthはゼロインデックス(0~11)だが、引数は1~12を受け取るため-1している
-  dateForRenderHeaderAndBody = dateForRenderHeaderAndBody.month(args.m - 1);
+  seedDate = seedDate.month(args.m - 1);
 }
 
-const FullMonthName = dateForRenderHeaderAndBody.format("MMMM");
-const FourDigitYear = dateForRenderHeaderAndBody.format("YYYY");
+const FullMonthName = seedDate.format("MMMM");
+const FourDigitYear = seedDate.format("YYYY");
 const HEADER_LENGTH = 20;
 const monthHeaderLength =
   (HEADER_LENGTH - (FullMonthName.length + FourDigitYear.length + 1)) / 2 +
@@ -42,7 +42,7 @@ const leftAlignedFourDigitYear = FourDigitYear.padEnd(YearHeaderLength, " ");
 console.log(leftAlignedFourDigitYear);
 
 // ここからBodyの描画
-dateForRenderHeaderAndBody
+seedDate
   .localeData()
   .weekdaysMin()
   .forEach((TheMinNameOfweekday) => {
@@ -54,7 +54,7 @@ dateForRenderHeaderAndBody
 
 console.log();
 
-const startDate = dateForRenderHeaderAndBody.startOf("month");
+const startDate = seedDate.startOf("month");
 
 for (let i = 0; i < startDate.day(); i++) {
   let whiteSpace = " ".repeat(DAY_CELL_LENGTH);
@@ -62,7 +62,7 @@ for (let i = 0; i < startDate.day(); i++) {
   process.stdout.write(" ");
 }
 
-const endDate = dateForRenderHeaderAndBody.endOf("month");
+const endDate = seedDate.endOf("month");
 
 // ms単位で比較されるのでtargetDate.isBefore(endDate)は最終日もtrueを返し、必要な回数ループを行ってくれる
 for (
