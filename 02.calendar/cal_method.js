@@ -25,15 +25,14 @@ function buildArgs(options) {
 }
 
 function buildHeader(seedDate) {
-  const headerLength = 20;
+  const calenderWidth = 20;
   const monthName = seedDate.format("MMMM");
   const year = seedDate.format("YYYY");
-  const monthHeaderLength =
-    (headerLength - (monthName.length + year.length + 1)) / 2 +
-    monthName.length;
+  const headerWidth = monthName.length + year.length + 1;
+  const whiteSpaces = " ".repeat((calenderWidth - headerWidth) / 2);
 
-  const rightAlignedMonthName = monthName.padStart(monthHeaderLength, " ");
-  return `${rightAlignedMonthName} ${year}`;
+  const canteredHeader = `${whiteSpaces}${monthName} ${year}`;
+  return canteredHeader;
 }
 
 function buildBody(seedDate) {
