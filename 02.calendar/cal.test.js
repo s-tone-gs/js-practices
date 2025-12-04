@@ -3,7 +3,7 @@ import { expect, test } from "vitest";
 
 const LEADING_LINE_BREAK = /^[\n]+/;
 
-test("calender 2025/1", () => {
+test("calendar 2025/1", () => {
   const expected = `
     January 2025
 Su Mo Tu We Th Fr Sa
@@ -19,7 +19,7 @@ Su Mo Tu We Th Fr Sa
   expect(buildCalendar(options)).toBe(expected);
 });
 
-test("calender 2025/7", () => {
+test("calendar 2025/7", () => {
   const expected = `
      July 2025
 Su Mo Tu We Th Fr Sa
@@ -35,7 +35,7 @@ Su Mo Tu We Th Fr Sa
   expect(buildCalendar(options)).toBe(expected);
 });
 
-test("calender 2025/12", () => {
+test("calendar 2025/12", () => {
   const expected = `
    December 2025
 Su Mo Tu We Th Fr Sa
@@ -51,7 +51,7 @@ Su Mo Tu We Th Fr Sa
   expect(buildCalendar(options)).toBe(expected);
 });
 
-test("calender 1970/1", () => {
+test("calendar 1970/1", () => {
   const expected = `
     January 1970
 Su Mo Tu We Th Fr Sa
@@ -67,7 +67,7 @@ Su Mo Tu We Th Fr Sa
   expect(buildCalendar(options)).toBe(expected);
 });
 
-test("calender 2035/1", () => {
+test("calendar 2035/1", () => {
   const expected = `
     January 2035
 Su Mo Tu We Th Fr Sa
@@ -83,7 +83,7 @@ Su Mo Tu We Th Fr Sa
   expect(buildCalendar(options)).toBe(expected);
 });
 
-test("calender 2100/1", () => {
+test("calendar 2100/1", () => {
   const expected = `
     January 2100
 Su Mo Tu We Th Fr Sa

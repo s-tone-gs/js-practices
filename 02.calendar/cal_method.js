@@ -25,37 +25,37 @@ function buildArgs(options) {
 }
 
 function buildHeader(seedDate) {
-  const calenderWidth = 20;
+  const calendarWidth = 20;
   const monthName = seedDate.format("MMMM");
   const year = seedDate.format("YYYY");
   const headerWidth = monthName.length + year.length + 1;
-  const whiteSpaces = " ".repeat((calenderWidth - headerWidth) / 2);
+  const whiteSpaces = " ".repeat((calendarWidth - headerWidth) / 2);
 
-  const canteredHeader = `${whiteSpaces}${monthName} ${year}`;
-  return canteredHeader;
+  const centeredHeader = `${whiteSpaces}${monthName} ${year}`;
+  return centeredHeader;
 }
 
 function buildBody(seedDate) {
   const minNameOfWeekday = seedDate.localeData().weekdaysMin().join(" ");
   const dayCellLength = 2;
 
-  let calenderGridValues = [];
+  let calendarGridValues = [];
   const startDate = seedDate.startOf("month");
   for (let i = 0; i < startDate.day(); i++) {
     const whiteSpaces = " ".repeat(dayCellLength);
-    calenderGridValues.push(whiteSpaces);
+    calendarGridValues.push(whiteSpaces);
   }
 
   const endDate = seedDate.endOf("month");
   for (let day = startDate.date(); day <= endDate.date(); day++) {
     const rightAlignedDay = day.toString().padStart(dayCellLength, " ");
-    calenderGridValues.push(rightAlignedDay);
+    calendarGridValues.push(rightAlignedDay);
   }
 
   const columnCount = 7;
   let body = [minNameOfWeekday];
-  for (let i = 0; i < calenderGridValues.length; i += columnCount) {
-    body.push(calenderGridValues.slice(i, i + columnCount).join(" "));
+  for (let i = 0; i < calendarGridValues.length; i += columnCount) {
+    body.push(calendarGridValues.slice(i, i + columnCount).join(" "));
   }
   return body;
 }
