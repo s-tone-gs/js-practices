@@ -3,21 +3,28 @@
 import dayjs from "dayjs";
 import "dayjs/locale/en.js";
 import localeData from "dayjs/plugin/localeData.js";
+import objectSupport from "dayjs/plugin/objectSupport.js";
 import minimist from "minimist";
 
 dayjs.extend(localeData);
+dayjs.extend(objectSupport);
 dayjs.locale("en");
 
-const args = minimist(process.argv.slice(2));
-let seedDate = dayjs();
-if (args.y) {
-  seedDate = seedDate.year(args.y);
-}
-if (args.m) {
-  // monthはゼロインデックス(0~11)だが、引数は1~12を受け取るため-1している
-  seedDate = seedDate.month(args.m - 1);
+function buildArgs() {
+  const options = minimist(process.argv.slice(2));
+  let args = {};
+  if (options.m) {
+    // monthはゼロインデックス(0~11)だが、引数は1~12を受け取るため-1している
+    args.month = options.m - 1;
+  }
+  if (options.y) {
+    args.year = options.y;
+  }
+  return args;
 }
 
+// 引数が{}の場合は現在の日時のオブジェクトが生成される
+const seedDate = dayjs(buildArgs());
 const monthName = seedDate.format("MMMM");
 const year = seedDate.format("YYYY");
 const HEADER_LENGTH = 20;
