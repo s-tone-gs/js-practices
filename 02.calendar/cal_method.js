@@ -56,8 +56,10 @@ function buildBody(seedDate) {
     dayOfMonth <= endDate.date();
     dayOfMonth++
   ) {
-    const rightAlignedDay = dayOfMonth.toString().padStart(CELL_WIDTH, " ");
-    calendarGridValues.push(rightAlignedDay);
+    const rightAlignedDayOfMonth = dayOfMonth
+      .toString()
+      .padStart(CELL_WIDTH, " ");
+    calendarGridValues.push(rightAlignedDayOfMonth);
   }
 
   const minNameOfWeekday = seedDate.localeData().weekdaysMin().join(gap);
