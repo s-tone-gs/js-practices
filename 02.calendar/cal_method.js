@@ -11,19 +11,19 @@ const CELL_WIDTH = 2;
 const GAP_WIDTH = 1;
 const COLUMN_COUNT = 7;
 
-export function buildCalendar(options) {
-  const seedDate = dayjs(buildArgs(options));
+export function buildCalendar(year, month) {
+  const seedDate = dayjs(buildArgs(year, month));
   return [buildHeader(seedDate), ...buildBody(seedDate)].join("\n");
 }
 
-function buildArgs(options) {
+function buildArgs(year, month) {
   let args = {};
-  if (options.m) {
+  if (month) {
     // monthはゼロインデックス(0~11)だが、引数は1~12を受け取るため-1している
-    args.month = options.m - 1;
+    args.month = month - 1;
   }
-  if (options.y) {
-    args.year = options.y;
+  if (year) {
+    args.year = year;
   }
   return args;
 }

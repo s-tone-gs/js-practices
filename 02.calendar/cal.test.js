@@ -15,8 +15,7 @@ Su Mo Tu We Th Fr Sa
   `
     .trimEnd()
     .replace(LEADING_LINE_BREAK, "");
-  const options = { y: 2025, m: 1 };
-  expect(buildCalendar(options)).toBe(expected);
+  expect(buildCalendar(2025, 1)).toBe(expected);
 });
 
 test("calendar 2025/7", () => {
@@ -31,8 +30,7 @@ Su Mo Tu We Th Fr Sa
   `
     .trimEnd()
     .replace(LEADING_LINE_BREAK, "");
-  const options = { y: 2025, m: 7 };
-  expect(buildCalendar(options)).toBe(expected);
+  expect(buildCalendar(2025, 7)).toBe(expected);
 });
 
 test("calendar 2025/12", () => {
@@ -47,8 +45,7 @@ Su Mo Tu We Th Fr Sa
   `
     .trimEnd()
     .replace(LEADING_LINE_BREAK, "");
-  const options = { y: 2025, m: 12 };
-  expect(buildCalendar(options)).toBe(expected);
+  expect(buildCalendar(2025, 12)).toBe(expected);
 });
 
 test("calendar 1970/1", () => {
@@ -63,8 +60,7 @@ Su Mo Tu We Th Fr Sa
   `
     .trimEnd()
     .replace(LEADING_LINE_BREAK, "");
-  const options = { y: 1970, m: 1 };
-  expect(buildCalendar(options)).toBe(expected);
+  expect(buildCalendar(1970, 1)).toBe(expected);
 });
 
 test("calendar 2035/1", () => {
@@ -79,8 +75,7 @@ Su Mo Tu We Th Fr Sa
   `
     .trimEnd()
     .replace(LEADING_LINE_BREAK, "");
-  const options = { y: 2035, m: 1 };
-  expect(buildCalendar(options)).toBe(expected);
+  expect(buildCalendar(2035, 1)).toBe(expected);
 });
 
 test("calendar 2100/1", () => {
@@ -96,6 +91,5 @@ Su Mo Tu We Th Fr Sa
   `
     .trimEnd()
     .replace(LEADING_LINE_BREAK, "");
-  const options = { y: 2100, m: 1 };
-  expect(buildCalendar(options)).toBe(expected);
+  expect(buildCalendar(2100, 1)).toBe(expected);
 });
