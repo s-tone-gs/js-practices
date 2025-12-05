@@ -7,6 +7,10 @@ dayjs.extend(localeData);
 dayjs.extend(objectSupport);
 dayjs.locale("en");
 
+const CELL_WIDTH = 2;
+const GAP_WIDTH = 1;
+const COLUMN_COUNT = 7;
+
 export function buildCalendar(options) {
   const seedDate = dayjs(buildArgs(options));
   return [buildHeader(seedDate), ...buildBody(seedDate)].join("\n");
@@ -24,25 +28,27 @@ function buildArgs(options) {
   return args;
 }
 
+const gap = " ".repeat(GAP_WIDTH);
+
 function buildHeader(seedDate) {
-  const calendarWidth = 20;
+  const calendarWidth =
+    CELL_WIDTH * COLUMN_COUNT + GAP_WIDTH * (COLUMN_COUNT - 1);
   const monthName = seedDate.format("MMMM");
   const year = seedDate.format("YYYY");
-  const headerWidth = monthName.length + year.length + 1;
+  const headerWidth = monthName.length + year.length + gap.length;
   const whiteSpaces = " ".repeat((calendarWidth - headerWidth) / 2);
 
-  const centeredHeader = `${whiteSpaces}${monthName} ${year}`;
+  const centeredHeader = `${whiteSpaces}${monthName}${gap}${year}`;
   return centeredHeader;
 }
 
 function buildBody(seedDate) {
-  const minNameOfWeekday = seedDate.localeData().weekdaysMin().join(" ");
-  const dayCellLength = 2;
+  const minNameOfWeekday = seedDate.localeData().weekdaysMin().join(gap);
 
   let calendarGridValues = [];
   const startDate = seedDate.startOf("month");
   for (let i = 0; i < startDate.day(); i++) {
-    const whiteSpaces = " ".repeat(dayCellLength);
+    const whiteSpaces = " ".repeat(CELL_WIDTH);
     calendarGridValues.push(whiteSpaces);
   }
 
@@ -52,14 +58,13 @@ function buildBody(seedDate) {
     dayOfMonth <= endDate.date();
     dayOfMonth++
   ) {
-    const rightAlignedDay = dayOfMonth.toString().padStart(dayCellLength, " ");
+    const rightAlignedDay = dayOfMonth.toString().padStart(CELL_WIDTH, " ");
     calendarGridValues.push(rightAlignedDay);
   }
 
-  const columnCount = 7;
   let body = [minNameOfWeekday];
-  for (let i = 0; i < calendarGridValues.length; i += columnCount) {
-    body.push(calendarGridValues.slice(i, i + columnCount).join(" "));
+  for (let i = 0; i < calendarGridValues.length; i += COLUMN_COUNT) {
+    body.push(calendarGridValues.slice(i, i + COLUMN_COUNT).join(gap));
   }
   return body;
 }
