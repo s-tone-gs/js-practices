@@ -11,11 +11,6 @@ const CELL_WIDTH = 2;
 const GAP_WIDTH = 1;
 const COLUMN_COUNT = 7;
 
-export function buildCalendar(year, month) {
-  const seedDate = dayjs(constructParams(year, month));
-  return [buildHeader(seedDate), ...buildBody(seedDate)].join("\n");
-}
-
 function constructParams(year, month) {
   const params = {};
   if (month) {
@@ -68,4 +63,9 @@ function buildBody(seedDate) {
     body.push(calendarGridValues.slice(i, i + COLUMN_COUNT).join(gap));
   }
   return body;
+}
+
+export function buildCalendar(year, month) {
+  const seedDate = dayjs(constructParams(year, month));
+  return [buildHeader(seedDate), ...buildBody(seedDate)].join("\n");
 }
