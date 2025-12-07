@@ -12,20 +12,20 @@ const GAP_WIDTH = 1;
 const COLUMN_COUNT = 7;
 
 export function buildCalendar(year, month) {
-  const seedDate = dayjs(buildArgs(year, month));
+  const seedDate = dayjs(constructParams(year, month));
   return [buildHeader(seedDate), ...buildBody(seedDate)].join("\n");
 }
 
-function buildArgs(year, month) {
-  let args = {};
+function constructParams(year, month) {
+  const params = {};
   if (month) {
     // monthはゼロインデックス(0~11)だが、引数は1~12を受け取るため-1している
-    args.month = month - 1;
+    params.month = month - 1;
   }
   if (year) {
-    args.year = year;
+    params.year = year;
   }
-  return args;
+  return params;
 }
 
 const gap = " ".repeat(GAP_WIDTH);
