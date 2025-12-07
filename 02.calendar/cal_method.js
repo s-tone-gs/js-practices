@@ -37,7 +37,7 @@ function buildHeader(seedDate) {
 }
 
 function buildBody(seedDate) {
-  let calendarGridValues = [];
+  const calendarGridValues = [];
   const startDate = seedDate.startOf("month");
   for (let i = 0; i < startDate.day(); i++) {
     const whiteSpaces = " ".repeat(CELL_WIDTH);
@@ -58,7 +58,7 @@ function buildBody(seedDate) {
 
   const gap = " ".repeat(GAP_WIDTH);
   const minNameOfWeekday = seedDate.localeData().weekdaysMin().join(gap);
-  let body = [minNameOfWeekday];
+  const body = [minNameOfWeekday];
   for (let i = 0; i < calendarGridValues.length; i += COLUMN_COUNT) {
     body.push(calendarGridValues.slice(i, i + COLUMN_COUNT).join(gap));
   }
