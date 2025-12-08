@@ -14,8 +14,8 @@ openDatabasePromise(":memory:")
     );
   })
   .then(() => runPromise(db, "INSERT INTO books (title) VALUES (null)"))
-  .then((historyOfChanges) => {
-    console.log(`自動採番されたID:${historyOfChanges.lastID}`);
+  .then((statement) => {
+    console.log(`自動採番されたID:${statement.lastID}`);
   })
   .catch((err) => {
     console.error(err.message);

@@ -10,11 +10,11 @@ await runPromise(
   "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
 );
 try {
-  const historyOfChanges = await runPromise(
+  const statement = await runPromise(
     db,
     "INSERT INTO books (title) VALUES (null)",
   );
-  console.log(`自動採番されたID:${historyOfChanges.lastID}`);
+  console.log(`自動採番されたID:${statement.lastID}`);
 } catch (err) {
   if (err !== null && err !== undefined && err.code === "SQLITE_CONSTRAINT") {
     console.error(err.message);

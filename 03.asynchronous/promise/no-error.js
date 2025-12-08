@@ -19,8 +19,8 @@ openDatabasePromise(":memory:")
       "INSERT INTO books (title) VALUES ('犬でもわかるプログラミング入門')",
     ),
   )
-  .then((historyOfChanges) => {
-    console.log(`自動採番されたID:${historyOfChanges.lastID}`);
+  .then((statement) => {
+    console.log(`自動採番されたID:${statement.lastID}`);
     return getPromise(db, "SELECT * FROM books LIMIT 1");
   })
   .then((book) => {
