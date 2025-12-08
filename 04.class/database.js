@@ -6,9 +6,13 @@ export class Database {
   static #connectedDb;
 
   static async connect() {
-    this.#connectedDb = await new Promise((resolve) => {
-      const db = new sqlite3.Database(this.FILE_NAME, () => {
-        resolve(db);
+    this.#connectedDb = await new Promise((resolve, reject) => {
+      const db = new sqlite3.Database(this.FILE_NAME, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(db);
+        }
       });
     });
     if (!(await this.#isTableExists())) {
