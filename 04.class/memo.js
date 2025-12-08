@@ -11,11 +11,11 @@ import { Memo } from "./memo-class.js";
 const args = minimist(process.argv.slice(2));
 await Database.connect();
 
-if (args["l"]) {
+if (args.l) {
   index();
-} else if (args["r"]) {
+} else if (args.r) {
   show();
-} else if (args["d"]) {
+} else if (args.d) {
   destroy();
 } else {
   create();
