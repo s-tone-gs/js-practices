@@ -10,13 +10,11 @@ const db = new sqlite3.Database(":memory:", () => {
         } else {
           console.log(`自動採番された ID: ${this.lastID}`);
         }
-        db.get("SELECT * FROM book LIMIT 1", function (err, retrievedBook) {
+        db.get("SELECT * FROM book LIMIT 1", function (err, book) {
           if (err) {
             console.error(err.message);
           } else {
-            console.log(
-              `取得したレコード id:${retrievedBook.id}, title: ${retrievedBook.title}`,
-            );
+            console.log(`取得したレコード id:${book.id}, title: ${book.title}`);
           }
           db.run("DROP TABLE books");
         });

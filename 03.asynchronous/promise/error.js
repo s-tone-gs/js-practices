@@ -21,10 +21,8 @@ openDatabasePromise(":memory:")
     console.error(err.message);
   })
   .then(() => getPromise(db, "SELECT * FROM book LIMIT 1"))
-  .then((retrievedBook) => {
-    console.log(
-      `取得したレコード id:${retrievedBook.id}, title: ${retrievedBook.title}`,
-    );
+  .then((book) => {
+    console.log(`取得したレコード id:${book.id}, title: ${book.title}`);
   })
   .catch((err) => {
     console.error(err.message);

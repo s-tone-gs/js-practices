@@ -14,8 +14,6 @@ const historyOfChanges = await runPromise(
   "INSERT INTO books (title) VALUES ('犬でもわかるプログラミング入門')",
 );
 console.log(`自動採番されたID:${historyOfChanges.lastID}`);
-const retrievedBook = await getPromise(db, "SELECT * FROM books LIMIT 1");
-console.log(
-  `取得したレコード id:${retrievedBook.id}, title: ${retrievedBook.title}`,
-);
+const book = await getPromise(db, "SELECT * FROM books LIMIT 1");
+console.log(`取得したレコード id:${book.id}, title: ${book.title}`);
 await runPromise(db, "DROP TABLE books");

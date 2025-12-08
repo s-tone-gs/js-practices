@@ -23,10 +23,8 @@ try {
   }
 }
 try {
-  const retrievedBook = await getPromise(db, "SELECT * FROM book LIMIT 1");
-  console.log(
-    `取得したレコード id:${retrievedBook.id}, title: ${retrievedBook.title}`,
-  );
+  const book = await getPromise(db, "SELECT * FROM book LIMIT 1");
+  console.log(`取得したレコード id:${book.id}, title: ${book.title}`);
 } catch (err) {
   if (err !== null && err !== undefined && err.code === "SQLITE_ERROR") {
     console.error(err.message);
