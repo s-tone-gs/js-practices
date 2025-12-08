@@ -16,6 +16,7 @@
   "dependencies": {
     "dayjs": "^1.11.19",
     "minimist": "^1.2.8",
+    "mockdate": "^3.0.5",
     "outdent": "^0.8.0"
   }
 }
