@@ -25,9 +25,13 @@ export function getPromise(db, ...args) {
 }
 
 export function openDatabasePromise(...args) {
-  return new Promise((resolve) => {
-    const db = new sqlite3.Database(...args, () => {
-      resolve(db);
+  return new Promise((resolve, reject) => {
+    const db = new sqlite3.Database(...args, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(db);
+      }
     });
   });
 }
