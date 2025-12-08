@@ -11,18 +11,6 @@ const CELL_WIDTH = 2;
 const GAP_WIDTH = 1;
 const COLUMN_COUNT = 7;
 
-function constructParams(year, month) {
-  const params = {};
-  if (month) {
-    // monthはゼロインデックス(0~11)だが、引数は1~12を受け取るため-1している
-    params.month = month - 1;
-  }
-  if (year) {
-    params.year = year;
-  }
-  return params;
-}
-
 function buildHeader(seedDate) {
   const monthName = seedDate.format("MMMM");
   const year = seedDate.format("YYYY");
@@ -65,7 +53,7 @@ function buildBody(seedDate) {
   return body;
 }
 
-export function buildCalendar(year, month) {
-  const seedDate = dayjs(constructParams(year, month));
+export function buildCalendar(yearAndMonth) {
+  const seedDate = dayjs(yearAndMonth);
   return [buildHeader(seedDate), ...buildBody(seedDate)].join("\n");
 }

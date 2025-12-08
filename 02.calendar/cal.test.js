@@ -12,7 +12,7 @@ test("minimum value of month", () => {
     12 13 14 15 16 17 18
     19 20 21 22 23 24 25
     26 27 28 29 30 31`;
-  expect(buildCalendar(2025, 1)).toBe(expected);
+  expect(buildCalendar({ year: 2025, month: 0 })).toBe(expected);
 });
 
 test("median of month", () => {
@@ -25,7 +25,7 @@ test("median of month", () => {
     13 14 15 16 17 18 19
     20 21 22 23 24 25 26
     27 28 29 30 31`;
-  expect(buildCalendar(2025, 7)).toBe(expected);
+  expect(buildCalendar({ year: 2025, month: 6 })).toBe(expected);
 });
 
 test("maximum value of month", () => {
@@ -38,7 +38,7 @@ test("maximum value of month", () => {
     14 15 16 17 18 19 20
     21 22 23 24 25 26 27
     28 29 30 31`;
-  expect(buildCalendar(2025, 12)).toBe(expected);
+  expect(buildCalendar({ year: 2025, month: 11 })).toBe(expected);
 });
 
 test("minimum value of year", () => {
@@ -51,7 +51,7 @@ test("minimum value of year", () => {
   11 12 13 14 15 16 17
   18 19 20 21 22 23 24
   25 26 27 28 29 30 31`;
-  expect(buildCalendar(1970, 1)).toBe(expected);
+  expect(buildCalendar({ year: 1970, month: 0 })).toBe(expected);
 });
 
 test("median of year", () => {
@@ -64,7 +64,7 @@ test("median of year", () => {
   14 15 16 17 18 19 20
   21 22 23 24 25 26 27
   28 29 30 31`;
-  expect(buildCalendar(2035, 1)).toBe(expected);
+  expect(buildCalendar({ year: 2035, month: 0 })).toBe(expected);
 });
 
 test("maximum value of yaer", () => {
@@ -78,5 +78,5 @@ test("maximum value of yaer", () => {
   17 18 19 20 21 22 23
   24 25 26 27 28 29 30
   31`;
-  expect(buildCalendar(2100, 1)).toBe(expected);
+  expect(buildCalendar({ year: 2100, month: 0 })).toBe(expected);
 });
