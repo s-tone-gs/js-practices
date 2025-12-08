@@ -11,16 +11,6 @@ import { Memo } from "./memo-class.js";
 const args = minimist(process.argv.slice(2));
 await Database.connect();
 
-if (args.l) {
-  index();
-} else if (args.r) {
-  show();
-} else if (args.d) {
-  destroy();
-} else {
-  create();
-}
-
 async function index() {
   const memos = await Database.selectAll();
   memos.forEach((memo) => {
@@ -46,6 +36,13 @@ async function create() {
   });
   rl.on("close", async () => {
     await Database.insert(new Memo({ content: content }));
+  });
+}
+
+async function buildChoices() {
+  const memos = await Database.selectAll();
+  return memos.map((memo) => {
+    return { message: memo.getFirstLine(), value: memo };
   });
 }
 
@@ -102,9 +99,12 @@ async function destroy() {
   Database.delete(selectedMemo);
 }
 
-async function buildChoices() {
-  const memos = await Database.selectAll();
-  return memos.map((memo) => {
-    return { message: memo.getFirstLine(), value: memo };
-  });
+if (args.l) {
+  index();
+} else if (args.r) {
+  show();
+} else if (args.d) {
+  destroy();
+} else {
+  create();
 }

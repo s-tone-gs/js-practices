@@ -5,6 +5,30 @@ export class Database {
   static FILE_NAME = "memos-store";
   static #connectedDb;
 
+  static #getPromise(sql, param = []) {
+    return new Promise((resolve, reject) => {
+      this.#connectedDb.get(sql, param, function (err, row) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row);
+        }
+      });
+    });
+  }
+
+  static async #isTableExists() {
+    return await this.#getPromise(
+      "SELECT * FROM sqlite_master WHERE type='table' AND name='memos'",
+    );
+  }
+
+  static async #createTable() {
+    await this.#runPromise(
+      "CREATE TABLE memos (id INTEGER PRIMARY KEY, content text NOT NULL)",
+    );
+  }
+
   static async connect() {
     this.#connectedDb = await new Promise((resolve, reject) => {
       const db = new sqlite3.Database(this.FILE_NAME, (err) => {
@@ -20,30 +44,22 @@ export class Database {
     }
   }
 
+  static #allPromise(sql, param = []) {
+    return new Promise((resolve, reject) => {
+      this.#connectedDb.all(sql, param, function (err, row) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row);
+        }
+      });
+    });
+  }
+
   static async selectAll() {
     const memos = await this.#allPromise("SELECT * FROM memos");
     return memos.map(
       (memo) => new Memo({ id: memo.id, content: memo.content }),
-    );
-  }
-  static async delete(memo) {
-    return await this.#runPromise("DELETE FROM memos WHERE id = ?", [memo.id]);
-  }
-  static async insert(memo) {
-    return await this.#runPromise("INSERT INTO memos (content) VALUES (?)", [
-      memo.content,
-    ]);
-  }
-
-  static async #isTableExists() {
-    return await this.#getPromise(
-      "SELECT * FROM sqlite_master WHERE type='table' AND name='memos'",
-    );
-  }
-
-  static async #createTable() {
-    await this.#runPromise(
-      "CREATE TABLE memos (id INTEGER PRIMARY KEY, content text NOT NULL)",
     );
   }
 
@@ -59,27 +75,13 @@ export class Database {
     });
   }
 
-  static #getPromise(sql, param = []) {
-    return new Promise((resolve, reject) => {
-      this.#connectedDb.get(sql, param, function (err, row) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(row);
-        }
-      });
-    });
+  static async delete(memo) {
+    return await this.#runPromise("DELETE FROM memos WHERE id = ?", [memo.id]);
   }
 
-  static #allPromise(sql, param = []) {
-    return new Promise((resolve, reject) => {
-      this.#connectedDb.all(sql, param, function (err, row) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(row);
-        }
-      });
-    });
+  static async insert(memo) {
+    return await this.#runPromise("INSERT INTO memos (content) VALUES (?)", [
+      memo.content,
+    ]);
   }
 }
