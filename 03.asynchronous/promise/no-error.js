@@ -6,8 +6,8 @@ import {
 
 let db;
 openDatabasePromise(":memory:")
-  .then((Connected) => {
-    db = Connected;
+  .then((connectedDb) => {
+    db = connectedDb;
     return runPromise(
       db,
       "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
