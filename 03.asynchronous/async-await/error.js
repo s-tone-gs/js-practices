@@ -16,7 +16,7 @@ try {
   );
   console.log(`自動採番されたID:${statement.lastID}`);
 } catch (err) {
-  if (err !== null && err !== undefined && err.code === "SQLITE_CONSTRAINT") {
+  if (err instanceof Error && err.code === "SQLITE_CONSTRAINT") {
     console.error(err.message);
   } else {
     throw err;
@@ -26,7 +26,7 @@ try {
   const book = await getPromise(db, "SELECT * FROM book LIMIT 1");
   console.log(`取得したレコード id:${book.id}, title: ${book.title}`);
 } catch (err) {
-  if (err !== null && err !== undefined && err.code === "SQLITE_ERROR") {
+  if (err instanceof Error && err.code === "SQLITE_ERROR") {
     console.error(err.message);
   } else {
     throw err;
