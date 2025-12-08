@@ -85,7 +85,7 @@ test("minimum value of year", () => {
   expect(buildCalendar({ year: 1970, month: 0 })).toBe(expected);
 });
 
-test("maximum value of yaer", () => {
+test("maximum value of year", () => {
   const expected = outdent`
   ${outdent}
       January 2100
