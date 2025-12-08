@@ -2,7 +2,7 @@ import {
   openDatabasePromise,
   runPromise,
   getPromise,
-} from "./database-helper.js";
+} from "../database-helper.js";
 
 let db;
 openDatabasePromise(":memory:")
@@ -13,19 +13,20 @@ openDatabasePromise(":memory:")
       "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
     );
   })
-  .then(() =>
-    runPromise(
-      db,
-      "INSERT INTO books (title) VALUES ('犬でもわかるプログラミング入門')",
-    ),
-  )
+  .then(() => runPromise(db, "INSERT INTO books (title) VALUES (null)"))
   .then((historyOfChanges) => {
     console.log(`自動採番されたID:${historyOfChanges.lastID}`);
-    return getPromise(db, "SELECT * FROM books LIMIT 1");
   })
+  .catch((err) => {
+    console.error(err.message);
+  })
+  .then(() => getPromise(db, "SELECT * FROM book LIMIT 1"))
   .then((retrievedBook) => {
     console.log(
       `取得したレコード id:${retrievedBook.id}, title: ${retrievedBook.title}`,
     );
-    return runPromise(db, "DROP TABLE books");
-  });
+  })
+  .catch((err) => {
+    console.error(err.message);
+  })
+  .then(() => runPromise(db, "DROP TABLE books"));

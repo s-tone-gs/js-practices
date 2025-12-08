@@ -2,7 +2,7 @@ import {
   openDatabasePromise,
   runPromise,
   getPromise,
-} from "./database-helper.js";
+} from "../database-helper.js";
 
 let db = await openDatabasePromise(":memory:");
 await runPromise(
