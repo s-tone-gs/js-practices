@@ -8,7 +8,7 @@ const db = new sqlite3.Database(":memory:", () => {
         if (err) {
           console.error(err.message);
         } else {
-          console.log(`自動採番された ID: ${this.lastID}`);
+          console.log(`自動採番されたID:${this.lastID}`);
         }
         db.get("SELECT * FROM book LIMIT 1", function (err, book) {
           if (err) {
