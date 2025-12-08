@@ -17,7 +17,7 @@ test("no option", () => {
   expect(buildCalendar({})).toBe(expected);
 });
 
-test("option only month use median value of month", () => {
+test("month-only option using the monthly median", () => {
   MockDate.set("2025-7-1");
   const expected = outdent`
   ${outdent}
@@ -31,7 +31,7 @@ test("option only month use median value of month", () => {
   expect(buildCalendar({ month: 6 })).toBe(expected);
 });
 
-test("option year and month use median value of yearMonth", () => {
+test("year and month' options using the median value", () => {
   const expected = outdent`
     ${outdent}
          July 2035
