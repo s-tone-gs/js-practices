@@ -60,8 +60,21 @@ async function show() {
     message: "参照したいメモを選んでください",
     choices: choices,
   });
-  let selected = await referableMemos.run();
-  console.log(selected.content);
+  let selectedMemo;
+  try {
+    selectedMemo = await referableMemos.run();
+  } catch (err) {
+    // Ctrl+Cでキャンセルが行われたとき、errとして""が投げられる
+    // この挙動はバグとされているが、未修正の模様。 issue: https://github.com/enquirer/enquirer/issues/225
+    // 一旦その挙動に従って実装する。
+    if (err === "") {
+      console.log("選択を中断しました。");
+      process.exit();
+    } else {
+      throw err;
+    }
+  }
+  console.log(selectedMemo.content);
 }
 
 async function destroy() {
@@ -75,8 +88,18 @@ async function destroy() {
     message: "削除したいメモを選んでください",
     choices: choices,
   });
-  let selected = await deletableMemos.run();
-  Database.delete(selected);
+  let selectedMemo;
+  try {
+    selectedMemo = await deletableMemos.run();
+  } catch (err) {
+    if (err === "") {
+      console.log("選択を中断しました。");
+      process.exit();
+    } else {
+      throw err;
+    }
+  }
+  Database.delete(selectedMemo);
 }
 
 async function buildChoices() {
