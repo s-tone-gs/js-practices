@@ -26,7 +26,7 @@ export function getPromise(db, ...args) {
 
 export function openDatabasePromise(...args) {
   return new Promise((resolve) => {
-    let db = new sqlite3.Database(...args, () => {
+    const db = new sqlite3.Database(...args, () => {
       resolve(db);
     });
   });
