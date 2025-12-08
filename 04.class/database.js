@@ -7,7 +7,7 @@ export class Database {
 
   static async connect() {
     this.#connected = await new Promise((resolve) => {
-      let db = new sqlite3.Database(this.FILE_NAME, () => {
+      const db = new sqlite3.Database(this.FILE_NAME, () => {
         resolve(db);
       });
     });
@@ -17,7 +17,7 @@ export class Database {
   }
 
   static async selectAll() {
-    let memos = await this.#allPromise("SELECT * FROM memos");
+    const memos = await this.#allPromise("SELECT * FROM memos");
     return memos.map(
       (memo) => new Memo({ id: memo.id, content: memo.content }),
     );

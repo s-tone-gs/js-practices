@@ -8,7 +8,7 @@ import { stdin as input, stdout as output } from "node:process";
 import { Database } from "./database.js";
 import { Memo } from "./memo-class.js";
 
-let args = minimist(process.argv.slice(2));
+const args = minimist(process.argv.slice(2));
 await Database.connect();
 
 if (args["l"]) {
@@ -22,7 +22,7 @@ if (args["l"]) {
 }
 
 async function index() {
-  let memos = await Database.selectAll();
+  const memos = await Database.selectAll();
   memos.forEach((memo) => {
     console.log(memo.getFirstLine());
   });
@@ -50,12 +50,12 @@ async function create() {
 }
 
 async function show() {
-  let choices = await buildChoices();
+  const choices = await buildChoices();
   if (choices.length === 0) {
     console.log("参照できるメモがありません");
     process.exit();
   }
-  let referableMemos = new Select({
+  const referableMemos = new Select({
     name: "show memos",
     message: "参照したいメモを選んでください",
     choices: choices,
@@ -78,12 +78,12 @@ async function show() {
 }
 
 async function destroy() {
-  let choices = await buildChoices();
+  const choices = await buildChoices();
   if (choices.length === 0) {
     console.log("削除できるメモがありません");
     process.exit();
   }
-  let deletableMemos = new Select({
+  const deletableMemos = new Select({
     name: "destroy memos",
     message: "削除したいメモを選んでください",
     choices: choices,
@@ -103,7 +103,7 @@ async function destroy() {
 }
 
 async function buildChoices() {
-  let memos = await Database.selectAll();
+  const memos = await Database.selectAll();
   return memos.map((memo) => {
     return { message: memo.getFirstLine(), value: memo };
   });
