@@ -41,6 +41,10 @@ async function create() {
 
 async function buildChoices() {
   const memos = await Database.selectAll();
+  if (memos.length === 0) {
+    console.log("メモがありません");
+    process.exit();
+  }
   return memos.map((memo) => {
     return { message: memo.getFirstLine(), value: memo };
   });
@@ -48,10 +52,6 @@ async function buildChoices() {
 
 async function show() {
   const choices = await buildChoices();
-  if (choices.length === 0) {
-    console.log("参照できるメモがありません");
-    process.exit();
-  }
   const referableMemos = new Select({
     name: "show memos",
     message: "参照したいメモを選んでください",
@@ -76,10 +76,6 @@ async function show() {
 
 async function destroy() {
   const choices = await buildChoices();
-  if (choices.length === 0) {
-    console.log("削除できるメモがありません");
-    process.exit();
-  }
   const deletableMemos = new Select({
     name: "destroy memos",
     message: "削除したいメモを選んでください",
