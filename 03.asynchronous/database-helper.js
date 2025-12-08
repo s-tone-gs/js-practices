@@ -1,8 +1,8 @@
 import sqlite3 from "sqlite3";
 
-export function runPromise(db, ...args) {
+export function runPromise(db, sql, param = []) {
   return new Promise((resolve, reject) => {
-    db.run(...args, function (err) {
+    db.run(sql, param, function (err) {
       if (err) {
         reject(err);
       } else {
@@ -12,9 +12,9 @@ export function runPromise(db, ...args) {
   });
 }
 
-export function getPromise(db, ...args) {
+export function getPromise(db, sql, param = []) {
   return new Promise((resolve, reject) => {
-    db.get(...args, (err, row) => {
+    db.get(sql, param, (err, row) => {
       if (err) {
         reject(err);
       } else {
@@ -24,9 +24,12 @@ export function getPromise(db, ...args) {
   });
 }
 
-export function openDatabasePromise(...args) {
+export function openDatabasePromise(
+  fileName,
+  mode = sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE | sqlite3.OPEN_FULLMUTEX,
+) {
   return new Promise((resolve, reject) => {
-    const db = new sqlite3.Database(...args, (err) => {
+    const db = new sqlite3.Database(fileName, mode, (err) => {
       if (err) {
         reject(err);
       } else {
