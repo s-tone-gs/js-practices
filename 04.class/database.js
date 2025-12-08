@@ -43,9 +43,9 @@ export class Database {
     );
   }
 
-  static #runPromise(...args) {
+  static #runPromise(sql, param = []) {
     return new Promise((resolve, reject) => {
-      this.#connectedDb.run(...args, function (err) {
+      this.#connectedDb.run(sql, param, function (err) {
         if (err) {
           reject(err);
         } else {
@@ -55,9 +55,9 @@ export class Database {
     });
   }
 
-  static #getPromise(...args) {
+  static #getPromise(sql, param = []) {
     return new Promise((resolve, reject) => {
-      this.#connectedDb.get(...args, function (err, row) {
+      this.#connectedDb.get(sql, param, function (err, row) {
         if (err) {
           reject(err);
         } else {
@@ -67,9 +67,9 @@ export class Database {
     });
   }
 
-  static #allPromise(...args) {
+  static #allPromise(sql, param = []) {
     return new Promise((resolve, reject) => {
-      this.#connectedDb.all(...args, function (err, row) {
+      this.#connectedDb.all(sql, param, function (err, row) {
         if (err) {
           reject(err);
         } else {
