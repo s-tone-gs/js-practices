@@ -3,10 +3,10 @@ import { Memo } from "./memo-class.js";
 
 export class Database {
   static FILE_NAME = "memos-store";
-  static #connected;
+  static #connectedDb;
 
   static async connect() {
-    this.#connected = await new Promise((resolve) => {
+    this.#connectedDb = await new Promise((resolve) => {
       const db = new sqlite3.Database(this.FILE_NAME, () => {
         resolve(db);
       });
@@ -45,7 +45,7 @@ export class Database {
 
   static #runPromise(...args) {
     return new Promise((resolve, reject) => {
-      this.#connected.run(...args, function (err) {
+      this.#connectedDb.run(...args, function (err) {
         if (err) {
           reject(err);
         } else {
@@ -57,7 +57,7 @@ export class Database {
 
   static #getPromise(...args) {
     return new Promise((resolve, reject) => {
-      this.#connected.get(...args, function (err, row) {
+      this.#connectedDb.get(...args, function (err, row) {
         if (err) {
           reject(err);
         } else {
@@ -69,7 +69,7 @@ export class Database {
 
   static #allPromise(...args) {
     return new Promise((resolve, reject) => {
-      this.#connected.all(...args, function (err, row) {
+      this.#connectedDb.all(...args, function (err, row) {
         if (err) {
           reject(err);
         } else {
