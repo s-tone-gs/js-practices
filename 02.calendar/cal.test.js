@@ -31,7 +31,7 @@ test("month-only option using the monthly median", () => {
   expect(buildCalendar({ month: 6 })).toBe(expected);
 });
 
-test("year and month' options using the median value", () => {
+test("year and month options using the median value", () => {
   const expected = outdent`
     ${outdent}
          July 2035
