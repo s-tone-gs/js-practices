@@ -2,13 +2,14 @@
 
 import minimist from "minimist";
 import enquirer from "enquirer";
-const { Select } = enquirer;
 import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import { Database } from "./database.js";
 import { Memo } from "./memo-class.js";
 
+const { Select } = enquirer;
 const args = minimist(process.argv.slice(2));
+
 await Database.connect();
 
 async function index() {
@@ -61,7 +62,7 @@ async function show() {
   try {
     selectedMemo = await referableMemos.run();
   } catch (err) {
-    // Ctrl+Cでキャンセルが行われたとき、errとして""が投げられる
+    // 選択を中断した際にerrとして""が投げられる。
     // この挙動はバグとされているが、未修正の模様。 issue: https://github.com/enquirer/enquirer/issues/225
     // 一旦その挙動に従って実装する。
     if (err === "") {
