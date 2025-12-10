@@ -7,7 +7,7 @@ export class Database {
 
   static #getPromise(sql, param = []) {
     return new Promise((resolve, reject) => {
-      this.#connectedDb.get(sql, param, function (err, row) {
+      this.#connectedDb.get(sql, param, (err, row) => {
         if (err) {
           reject(err);
         } else {
@@ -46,7 +46,7 @@ export class Database {
 
   static #allPromise(sql, param = []) {
     return new Promise((resolve, reject) => {
-      this.#connectedDb.all(sql, param, function (err, row) {
+      this.#connectedDb.all(sql, param, (err, row) => {
         if (err) {
           reject(err);
         } else {
