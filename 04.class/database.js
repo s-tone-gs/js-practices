@@ -1,7 +1,7 @@
 import sqlite3 from "sqlite3";
-import { Memo } from "./memo-class.js";
+import Memo from "./memo-class.js";
 
-export class Database {
+export default class Database {
   static FILE_NAME = "memos-store";
   static #connectedDb;
 
