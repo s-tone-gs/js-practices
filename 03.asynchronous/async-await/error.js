@@ -24,7 +24,7 @@ try {
 }
 try {
   const book = await getPromise(db, "SELECT * FROM book LIMIT 1");
-  console.log(`取得したレコード id:${book.id}, title: ${book.title}`);
+  console.log(`取得したレコード id:${book.id}, title:${book.title}`);
 } catch (err) {
   if (err instanceof Error && err.code === "SQLITE_ERROR") {
     console.error(err.message);

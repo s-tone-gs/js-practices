@@ -9,7 +9,7 @@ const db = new sqlite3.Database(":memory:", () => {
         function () {
           console.log(`自動採番されたID:${this.lastID}`);
           db.get("SELECT * FROM books LIMIT 1", function (_, book) {
-            console.log(`取得したレコード id:${book.id}, title: ${book.title}`);
+            console.log(`取得したレコード id:${book.id}, title:${book.title}`);
             db.run("DROP TABLE books");
           });
         },

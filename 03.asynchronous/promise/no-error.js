@@ -24,6 +24,6 @@ openDatabasePromise(":memory:")
     return getPromise(db, "SELECT * FROM books LIMIT 1");
   })
   .then((book) => {
-    console.log(`取得したレコード id:${book.id}, title: ${book.title}`);
+    console.log(`取得したレコード id:${book.id}, title:${book.title}`);
     return runPromise(db, "DROP TABLE books");
   });

@@ -15,5 +15,5 @@ const statement = await runPromise(
 );
 console.log(`自動採番されたID:${statement.lastID}`);
 const book = await getPromise(db, "SELECT * FROM books LIMIT 1");
-console.log(`取得したレコード id:${book.id}, title: ${book.title}`);
+console.log(`取得したレコード id:${book.id}, title:${book.title}`);
 await runPromise(db, "DROP TABLE books");
