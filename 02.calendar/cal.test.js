@@ -28,7 +28,7 @@ test("month-only option using the monthly median", () => {
     13 14 15 16 17 18 19
     20 21 22 23 24 25 26
     27 28 29 30 31`;
-  expect(buildCalendar({ month: 6 })).toBe(expected);
+  expect(buildCalendar({ month: 7 })).toBe(expected);
 });
 
 test("year and month options using the median value", () => {
@@ -41,7 +41,7 @@ test("year and month options using the median value", () => {
     15 16 17 18 19 20 21
     22 23 24 25 26 27 28
     29 30 31`;
-  expect(buildCalendar({ year: 2035, month: 6 })).toBe(expected);
+  expect(buildCalendar({ year: 2035, month: 7 })).toBe(expected);
 });
 
 test("minimum value of month", () => {
@@ -55,7 +55,7 @@ test("minimum value of month", () => {
     12 13 14 15 16 17 18
     19 20 21 22 23 24 25
     26 27 28 29 30 31`;
-  expect(buildCalendar({ month: 0 })).toBe(expected);
+  expect(buildCalendar({ month: 1 })).toBe(expected);
 });
 
 test("maximum value of month", () => {
@@ -69,7 +69,7 @@ test("maximum value of month", () => {
     14 15 16 17 18 19 20
     21 22 23 24 25 26 27
     28 29 30 31`;
-  expect(buildCalendar({ month: 11 })).toBe(expected);
+  expect(buildCalendar({ month: 12 })).toBe(expected);
 });
 
 test("minimum value of year", () => {
@@ -82,7 +82,7 @@ test("minimum value of year", () => {
     11 12 13 14 15 16 17
     18 19 20 21 22 23 24
     25 26 27 28 29 30 31`;
-  expect(buildCalendar({ year: 1970, month: 0 })).toBe(expected);
+  expect(buildCalendar({ year: 1970, month: 1 })).toBe(expected);
 });
 
 test("maximum value of year", () => {
@@ -96,5 +96,5 @@ test("maximum value of year", () => {
     17 18 19 20 21 22 23
     24 25 26 27 28 29 30
     31`;
-  expect(buildCalendar({ year: 2100, month: 0 })).toBe(expected);
+  expect(buildCalendar({ year: 2100, month: 1 })).toBe(expected);
 });

@@ -6,8 +6,7 @@ import { buildCalendar } from "./cal_method.js";
 const options = minimist(process.argv.slice(2));
 const yearAndMonth = {};
 if (options.m) {
-  // monthはゼロインデックス(0~11)だが、引数は1~12を受け取るため-1している
-  yearAndMonth.month = options.m - 1;
+  yearAndMonth.month = options.m;
 }
 if (options.y) {
   yearAndMonth.year = options.y;
