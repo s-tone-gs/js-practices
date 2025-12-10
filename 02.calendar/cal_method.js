@@ -8,19 +8,19 @@ dayjs.extend(objectSupport);
 dayjs.locale("en");
 
 const CELL_WIDTH = 2;
-const GAP_WIDTH = 1;
+const WORD_SPACING = 1;
 const COLUMN_COUNT = 7;
 
 function buildHeader(seedDate) {
   const monthName = seedDate.format("MMMM");
   const year = seedDate.format("YYYY");
-  const headerWidth = monthName.length + year.length + GAP_WIDTH;
+  const headerWidth = monthName.length + year.length + WORD_SPACING;
   const calendarWidth =
-    CELL_WIDTH * COLUMN_COUNT + GAP_WIDTH * (COLUMN_COUNT - 1);
-  const whiteSpaces = " ".repeat((calendarWidth - headerWidth) / 2);
-  const gap = " ".repeat(GAP_WIDTH);
+    CELL_WIDTH * COLUMN_COUNT + WORD_SPACING * (COLUMN_COUNT - 1);
+  const indentations = " ".repeat((calendarWidth - headerWidth) / 2);
+  const spaceDelimiter = " ".repeat(WORD_SPACING);
 
-  const centeredHeader = `${whiteSpaces}${monthName}${gap}${year}`;
+  const centeredHeader = `${indentations}${monthName}${spaceDelimiter}${year}`;
   return centeredHeader;
 }
 
@@ -28,8 +28,8 @@ function buildBody(seedDate) {
   const calendarGridValues = [];
   const startDate = seedDate.startOf("month");
   for (let i = 0; i < startDate.day(); i++) {
-    const whiteSpaces = " ".repeat(CELL_WIDTH);
-    calendarGridValues.push(whiteSpaces);
+    const indentations = " ".repeat(CELL_WIDTH);
+    calendarGridValues.push(indentations);
   }
 
   const endDate = seedDate.endOf("month");
@@ -44,11 +44,16 @@ function buildBody(seedDate) {
     calendarGridValues.push(rightAlignedDayOfMonth);
   }
 
-  const gap = " ".repeat(GAP_WIDTH);
-  const minNameOfWeekday = seedDate.localeData().weekdaysMin().join(gap);
+  const spaceDelimiter = " ".repeat(WORD_SPACING);
+  const minNameOfWeekday = seedDate
+    .localeData()
+    .weekdaysMin()
+    .join(spaceDelimiter);
   const body = [minNameOfWeekday];
   for (let i = 0; i < calendarGridValues.length; i += COLUMN_COUNT) {
-    body.push(calendarGridValues.slice(i, i + COLUMN_COUNT).join(gap));
+    body.push(
+      calendarGridValues.slice(i, i + COLUMN_COUNT).join(spaceDelimiter),
+    );
   }
   return body;
 }
