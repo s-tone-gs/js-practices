@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 import minimist from "minimist";
-import { buildCalendar } from "./cal_method.js";
+import { buildCalendar } from "./buildCalendar.js";
 
 const options = minimist(process.argv.slice(2));
 const yearAndMonth = {};
