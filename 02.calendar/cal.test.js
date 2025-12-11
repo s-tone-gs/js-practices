@@ -1,7 +1,7 @@
 import { expect, test } from "vitest";
 import MockDate from "mockdate";
 import { outdent } from "outdent";
-import { buildCalendar } from "./buildCalendar.js";
+import { buildCalendar } from "./calendarBuilder.js";
 
 test("no option", () => {
   MockDate.set("2025-12-1");
