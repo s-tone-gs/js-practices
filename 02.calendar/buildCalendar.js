@@ -58,12 +58,7 @@ function buildBody(seedDate) {
   return body;
 }
 
-export function buildCalendar(yearAndMonth) {
-  const params = { ...yearAndMonth };
-  if (params.month) {
-    // dayjsは月をゼロインデックス(0~11)で示すため-1している
-    params.month -= 1;
-  }
-  const seedDate = dayjs(params);
+export function buildCalendar({ year, month }) {
+  const seedDate = dayjs({ year, month: month - 1 });
   return [buildHeader(seedDate), ...buildBody(seedDate)].join("\n");
 }
