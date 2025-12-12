@@ -1,7 +1,6 @@
 export default class Memo {
-  constructor(memo) {
-    this.content = memo.content;
-    this.id = memo.id ? memo.id : null;
+  constructor(content) {
+    this.content = content;
   }
 
   getFirstLine() {

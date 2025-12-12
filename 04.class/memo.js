@@ -1,107 +1,52 @@
 #! /usr/bin/env node
 
 import minimist from "minimist";
-import enquirer from "enquirer";
-import * as readline from "node:readline/promises";
-import { stdin as input, stdout as output } from "node:process";
-import Database from "./database.js";
-import Memo from "./memo-class.js";
+import MemoView from "./memoView.js";
+import Memo from "./memoClass.js";
+import MemoDatabase from "./memoDatabase.js";
 
-const { Select } = enquirer;
-const args = minimist(process.argv.slice(2));
-
-await Database.connect();
-
-async function index() {
-  const memos = await Database.selectAll();
-  memos.forEach((memo) => {
-    console.log(memo.getFirstLine());
-  });
-}
-
-async function create() {
-  const rl = readline.createInterface({ input, output });
-  let content;
-  try {
-    content = await rl.question("保存するメモの内容を入力してください\n");
-  } catch (err) {
-    if (err instanceof Error && err.code === "ABORT_ERR") {
-      console.log("メモが保存されずに終了しました");
-      process.exit();
-    } else {
-      throw err;
-    }
-  }
-  rl.on("line", (line) => {
-    content += `\n${line}`;
-  });
-  rl.on("close", async () => {
-    await Database.insert(new Memo({ content: content }));
-  });
-}
-
-async function buildChoices() {
-  const memos = await Database.selectAll();
+async function listMemo() {
+  const memos = await MemoDatabase.all();
   if (memos.length === 0) {
-    console.log("メモがありません");
+    MemoView.noMemo();
     process.exit();
   }
-  return memos.map((memo) => {
-    return { message: memo.getFirstLine(), value: memo };
-  });
+  MemoView.staticList(memos);
 }
 
-async function show() {
-  const choices = await buildChoices();
-  const referableMemos = new Select({
-    name: "show memos",
-    message: "参照したいメモを選んでください",
-    choices: choices,
-  });
-  let selectedMemo;
-  try {
-    selectedMemo = await referableMemos.run();
-  } catch (err) {
-    // 選択を中断した際にerrとして""が投げられる。
-    // この挙動はバグとされているが、未修正の模様。 issue: https://github.com/enquirer/enquirer/issues/225
-    // 一旦その挙動に従って実装する。
-    if (err === "") {
-      console.log("選択を中断しました。");
-      process.exit();
-    } else {
-      throw err;
-    }
+async function createMemo() {
+  const content = await MemoView.create();
+  const newMemo = new Memo(content);
+  await MemoDatabase.save(newMemo);
+}
+
+async function showMemoContent() {
+  const memos = await MemoDatabase.all();
+  if (memos.length === 0) {
+    MemoView.noMemo();
+    process.exit();
   }
-  console.log(selectedMemo.content);
+  const { memo } = await MemoView.refarableList(memos);
+  MemoView.showContent(memo);
 }
 
-async function destroy() {
-  const choices = await buildChoices();
-  const deletableMemos = new Select({
-    name: "destroy memos",
-    message: "削除したいメモを選んでください",
-    choices: choices,
-  });
-  let selectedMemo;
-  try {
-    selectedMemo = await deletableMemos.run();
-  } catch (err) {
-    if (err === "") {
-      console.log("選択を中断しました。");
-      process.exit();
-    } else {
-      throw err;
-    }
+async function destroyMemo() {
+  const memos = await MemoDatabase.all();
+  if (memos.length === 0) {
+    MemoView.noMemo();
+    process.exit();
   }
-  Database.delete(selectedMemo);
+  const { id } = await MemoView.deletableList(memos);
+  await MemoDatabase.delete(id);
 }
 
+const args = minimist(process.argv.slice(2));
 if (args.l) {
-  index();
+  listMemo();
 } else if (args.r) {
-  show();
+  showMemoContent();
 } else if (args.d) {
-  destroy();
+  destroyMemo();
 } else {
-  create();
+  createMemo();
 }
