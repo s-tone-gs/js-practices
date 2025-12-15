@@ -1,7 +1,7 @@
 import Database from "./database.js";
 import Memo from "./memoClass.js";
 
-export default class MemoDatabase {
+export default class MemoRepository {
   static #FILE_NAME = "memos-store";
   // TABLE_NAMEを各sql文に埋め込んでいる。保存先のファイルが変わった際の修正箇所を減らすため
   // 静的な値であるため、sqlインジェクションの考慮は不要であるという前提で実装している

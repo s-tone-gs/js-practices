@@ -3,21 +3,21 @@
 import minimist from "minimist";
 import MemoView from "./memoView.js";
 import Memo from "./memoClass.js";
-import MemoDatabase from "./memoDatabase.js";
+import MemoRepository from "./memoRepository.js";
 
 async function listMemo() {
-  const memos = await MemoDatabase.all();
+  const memos = await MemoRepository.all();
   MemoView.listMemosStatically(memos);
 }
 
 async function createMemo() {
   const content = await MemoView.requireText();
   const newMemo = new Memo(content);
-  await MemoDatabase.save(newMemo);
+  await MemoRepository.save(newMemo);
 }
 
 async function showMemoContent() {
-  const memos = await MemoDatabase.all();
+  const memos = await MemoRepository.all();
   if (memos.length === 0) {
     MemoView.noMemo();
     process.exit();
@@ -27,13 +27,13 @@ async function showMemoContent() {
 }
 
 async function destroyMemo() {
-  const memos = await MemoDatabase.all();
+  const memos = await MemoRepository.all();
   if (memos.length === 0) {
     MemoView.noMemo();
     process.exit();
   }
   const { id } = await MemoView.listDeletableMemos(memos);
-  await MemoDatabase.delete(id);
+  await MemoRepository.delete(id);
 }
 
 const args = minimist(process.argv.slice(2));
