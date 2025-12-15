@@ -3,9 +3,9 @@ import sqlite3 from "sqlite3";
 export default class Database {
   static connectedDb;
 
-  static #getPromise(sql, param = []) {
+  static #getPromise(sql, params = []) {
     return new Promise((resolve, reject) => {
-      this.connectedDb.get(sql, param, (err, row) => {
+      this.connectedDb.get(sql, params, (err, row) => {
         if (err) {
           reject(err);
         } else {
@@ -34,9 +34,9 @@ export default class Database {
     });
   }
 
-  static allPromise(sql, param = []) {
+  static allPromise(sql, params = []) {
     return new Promise((resolve, reject) => {
-      this.connectedDb.all(sql, param, (err, row) => {
+      this.connectedDb.all(sql, params, (err, row) => {
         if (err) {
           reject(err);
         } else {
@@ -46,9 +46,9 @@ export default class Database {
     });
   }
 
-  static runPromise(sql, param = []) {
+  static runPromise(sql, params = []) {
     return new Promise((resolve, reject) => {
-      this.connectedDb.run(sql, param, function (err) {
+      this.connectedDb.run(sql, params, function (err) {
         if (err) {
           reject(err);
         } else {
