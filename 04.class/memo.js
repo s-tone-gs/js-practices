@@ -27,7 +27,7 @@ async function showMemoContent() {
     process.exit();
   }
   const { memo } = await MemoView.ListOfReferableMemos(memos);
-  MemoView.showContent(memo);
+  console.log(memo.content);
 }
 
 async function destroyMemo() {

@@ -32,10 +32,6 @@ export default class MemoView {
     );
   }
 
-  static showContent(memo) {
-    console.log(memo.content);
-  }
-
   static async ListOfDeletableMemos(memos) {
     const deletableMemos = this.#buildMemoChoice(memos);
     return await Input.provideInteractiveSelectList(
