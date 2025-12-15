@@ -1,4 +1,4 @@
-import InputPrompter from "./inputPrompter.js";
+import Input from "./input.js";
 
 export default class MemoView {
   static staticList(memos) {
@@ -8,7 +8,7 @@ export default class MemoView {
   }
 
   static async create() {
-    return await InputPrompter.promptMultiLineText(
+    return await Input.provideMultiLineTextField(
       "メモを入力してください",
       "メモが保存されずに終了しました",
     );
@@ -25,7 +25,7 @@ export default class MemoView {
 
   static async refarableList(memos) {
     const refarableMemos = this.#buildMemoChoice(memos);
-    return await InputPrompter.promptSelection(
+    return await Input.provideInteractiveSelectList(
       "reference",
       "参照したいメモを選択してください",
       refarableMemos,
@@ -38,7 +38,7 @@ export default class MemoView {
 
   static async deletableList(memos) {
     const deletableMemos = this.#buildMemoChoice(memos);
-    return await InputPrompter.promptSelection(
+    return await Input.provideInteractiveSelectList(
       "deletion",
       "削除したいメモを選択してください",
       deletableMemos,

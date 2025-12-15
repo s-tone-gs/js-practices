@@ -4,8 +4,8 @@ import enquirer from "enquirer";
 
 const { Select } = enquirer;
 
-export default class InputPrompter {
-  static async promptMultiLineText(promptMessage, cancelMessage) {
+export default class Input {
+  static async provideMultiLineTextField(promptMessage, cancelMessage) {
     const rl = readline.createInterface({ input, output });
     let content;
     try {
@@ -28,7 +28,7 @@ export default class InputPrompter {
     });
   }
 
-  static async promptSelection(selecterName, message, choices) {
+  static async provideInteractiveSelectList(selecterName, message, choices) {
     const selectableMemos = new Select({
       name: selecterName,
       message: message,
