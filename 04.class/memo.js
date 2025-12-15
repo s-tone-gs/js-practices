@@ -7,10 +7,6 @@ import MemoDatabase from "./memoDatabase.js";
 
 async function listMemo() {
   const memos = await MemoDatabase.all();
-  if (memos.length === 0) {
-    MemoView.noMemo();
-    process.exit();
-  }
   MemoView.listMemosStatically(memos);
 }
 
