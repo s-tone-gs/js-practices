@@ -11,11 +11,11 @@ async function listMemo() {
     MemoView.noMemo();
     process.exit();
   }
-  MemoView.staticListOfMemos(memos);
+  MemoView.listMemosStatically(memos);
 }
 
 async function createMemo() {
-  const content = await MemoView.create();
+  const content = await MemoView.requireText();
   const newMemo = new Memo(content);
   await MemoDatabase.save(newMemo);
 }
@@ -26,7 +26,7 @@ async function showMemoContent() {
     MemoView.noMemo();
     process.exit();
   }
-  const { memo } = await MemoView.ListOfReferableMemos(memos);
+  const { memo } = await MemoView.listReferableMemos(memos);
   console.log(memo.content);
 }
 
@@ -36,7 +36,7 @@ async function destroyMemo() {
     MemoView.noMemo();
     process.exit();
   }
-  const { id } = await MemoView.ListOfDeletableMemos(memos);
+  const { id } = await MemoView.listDeletableMemos(memos);
   await MemoDatabase.delete(id);
 }
 

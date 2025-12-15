@@ -1,13 +1,13 @@
 import Input from "./input.js";
 
 export default class MemoView {
-  static staticListOfMemos(memos) {
+  static listMemosStatically(memos) {
     for (const memoWithId of memos) {
       console.log(memoWithId.memo.getFirstLine());
     }
   }
 
-  static async create() {
+  static async requireText() {
     return await Input.provideMultiLineTextField(
       "メモを入力してください",
       "メモが保存されずに終了しました",
@@ -23,7 +23,7 @@ export default class MemoView {
     });
   }
 
-  static async ListOfReferableMemos(memos) {
+  static async listReferableMemos(memos) {
     const refarableMemos = this.#buildMemoChoice(memos);
     return await Input.provideInteractiveSelectList(
       "reference",
@@ -32,7 +32,7 @@ export default class MemoView {
     );
   }
 
-  static async ListOfDeletableMemos(memos) {
+  static async listDeletableMemos(memos) {
     const deletableMemos = this.#buildMemoChoice(memos);
     return await Input.provideInteractiveSelectList(
       "deletion",
