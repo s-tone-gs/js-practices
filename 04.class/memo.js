@@ -11,7 +11,7 @@ async function listMemo() {
     MemoView.noMemo();
     process.exit();
   }
-  MemoView.staticList(memos);
+  MemoView.staticListOfMemos(memos);
 }
 
 async function createMemo() {
@@ -26,7 +26,7 @@ async function showMemoContent() {
     MemoView.noMemo();
     process.exit();
   }
-  const { memo } = await MemoView.refarableList(memos);
+  const { memo } = await MemoView.ListOfReferableMemos(memos);
   MemoView.showContent(memo);
 }
 
@@ -36,7 +36,7 @@ async function destroyMemo() {
     MemoView.noMemo();
     process.exit();
   }
-  const { id } = await MemoView.deletableList(memos);
+  const { id } = await MemoView.ListOfDeletableMemos(memos);
   await MemoDatabase.delete(id);
 }
 

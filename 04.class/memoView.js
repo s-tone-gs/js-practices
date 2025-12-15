@@ -1,7 +1,7 @@
 import Input from "./input.js";
 
 export default class MemoView {
-  static staticList(memos) {
+  static staticListOfMemos(memos) {
     for (const memoWithId of memos) {
       console.log(memoWithId.memo.getFirstLine());
     }
@@ -23,7 +23,7 @@ export default class MemoView {
     });
   }
 
-  static async refarableList(memos) {
+  static async ListOfReferableMemos(memos) {
     const refarableMemos = this.#buildMemoChoice(memos);
     return await Input.provideInteractiveSelectList(
       "reference",
@@ -36,7 +36,7 @@ export default class MemoView {
     console.log(memo.content);
   }
 
-  static async deletableList(memos) {
+  static async ListOfDeletableMemos(memos) {
     const deletableMemos = this.#buildMemoChoice(memos);
     return await Input.provideInteractiveSelectList(
       "deletion",
