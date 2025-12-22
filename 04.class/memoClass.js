@@ -3,7 +3,7 @@ export default class Memo {
     this.content = content;
   }
 
-  getFirstLine() {
+  get firstLine() {
     const lines = this.content.split("\n");
     return lines[0];
   }

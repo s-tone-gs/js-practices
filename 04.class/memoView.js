@@ -3,7 +3,7 @@ import Input from "./input.js";
 export default class MemoView {
   static listMemosStatically(memos) {
     for (const memoWithId of memos) {
-      console.log(memoWithId.memo.getFirstLine());
+      console.log(memoWithId.memo.firstLine);
     }
   }
 
@@ -17,7 +17,7 @@ export default class MemoView {
   static #buildMemoChoice(memos) {
     return memos.map((memoWithId) => {
       return {
-        message: memoWithId.memo.getFirstLine(),
+        message: memoWithId.memo.firstLine,
         value: memoWithId,
       };
     });
