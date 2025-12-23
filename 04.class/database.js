@@ -3,7 +3,7 @@ import sqlite3 from "sqlite3";
 export default class Database {
   static connectedDb;
 
-  static #getPromise(sql, params = []) {
+  static getPromise(sql, params = []) {
     return new Promise((resolve, reject) => {
       this.connectedDb.get(sql, params, (err, row) => {
         if (err) {
@@ -16,7 +16,7 @@ export default class Database {
   }
 
   static async isTableExists(tableName) {
-    return await this.#getPromise(
+    return await this.getPromise(
       "SELECT * FROM sqlite_master WHERE type='table' AND name= ?",
       [tableName],
     );
