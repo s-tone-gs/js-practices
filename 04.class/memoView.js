@@ -1,47 +1,30 @@
-import Input from "./input.js";
+import { requireMultiLineText, runMemoSelector } from "./enquirer.js";
 
-export default class MemoView {
-  static listMemosStatically(memos) {
-    for (const memoWithId of memos) {
-      console.log(memoWithId.memo.firstLine);
-    }
+export function list(memos) {
+  const firstLines = memos.map((memo) => memo.firstLine).join("\n");
+  if (firstLines) {
+    console.log(firstLines);
   }
+}
 
-  static async requireText() {
-    return await Input.provideMultiLineTextField(
-      "メモを入力してください",
-      "メモが保存されずに終了しました",
-    );
-  }
+export async function create() {
+  const content = await requireMultiLineText();
+  return { content };
+}
 
-  static #buildMemoChoice(memos) {
-    return memos.map((memoWithId) => {
-      return {
-        message: memoWithId.memo.firstLine,
-        value: memoWithId,
-      };
-    });
-  }
+export async function show(memos) {
+  const memo = await runMemoSelector(
+    memos,
+    "references",
+    "参照したいメモを選択してください",
+  );
+  console.log(memo.content);
+}
 
-  static async listReferableMemos(memos) {
-    const refarableMemos = this.#buildMemoChoice(memos);
-    return await Input.provideInteractiveSelectList(
-      "reference",
-      "参照したいメモを選択してください",
-      refarableMemos,
-    );
-  }
-
-  static async listDeletableMemos(memos) {
-    const deletableMemos = this.#buildMemoChoice(memos);
-    return await Input.provideInteractiveSelectList(
-      "deletion",
-      "削除したいメモを選択してください",
-      deletableMemos,
-    );
-  }
-
-  static noMemo() {
-    console.error("メモがありません");
-  }
+export async function destroy(memos) {
+  return await runMemoSelector(
+    memos,
+    "deletion",
+    "削除したいメモを選択してください",
+  );
 }
