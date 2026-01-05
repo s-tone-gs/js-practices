@@ -11,16 +11,6 @@ const dataAccessObject = new SqliteDbAccessor(connectedDb);
 dataAccessObject.ensureTableExists();
 const argumentParser = new CommandLineArgumentParser();
 
-if (argumentParser.isListMode) {
-  list();
-} else if (argumentParser.isReferenceMode) {
-  show();
-} else if (argumentParser.isDestroyMode) {
-  destroy();
-} else {
-  create();
-}
-
 async function list() {
   const memos = await Memo.all(dataAccessObject);
   MemoView.list(memos);
@@ -45,3 +35,16 @@ async function destroy() {
   const memo = await MemoView.destroy(memos);
   memo.destroy();
 }
+
+function main() {
+  if (argumentParser.isListMode) {
+    list();
+  } else if (argumentParser.isReferenceMode) {
+    show();
+  } else if (argumentParser.isDestroyMode) {
+    destroy();
+  } else {
+    create();
+  }
+}
+main();
