@@ -22,7 +22,8 @@ export default class SqliteDbAccessor {
   }
 
   async destroy(id) {
-    await this.connectedDb.run(
+    await Sqlite.run(
+      this.connectedDb,
       `DELETE FROM ${this.constructor.TABLE_NAME} WHERE id = ?`,
       [id],
     );
@@ -34,7 +35,8 @@ export default class SqliteDbAccessor {
     const placeholders = Array.from({ length: values.length }, () => "?").join(
       ",",
     );
-    await this.connectedDb.run(
+    await Sqlite.run(
+      this.connectedDb,
       `INSERT INTO ${this.constructor.TABLE_NAME} (${fields}) VALUES (${placeholders})`,
       values,
     );
