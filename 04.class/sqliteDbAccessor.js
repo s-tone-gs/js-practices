@@ -29,16 +29,11 @@ export default class SqliteDbAccessor {
     );
   }
 
-  async save(memo) {
-    const fields = Object.keys(memo).join(",");
-    const values = Object.values(memo);
-    const placeholders = Array.from({ length: values.length }, () => "?").join(
-      ",",
-    );
+  async save(content) {
     await Sqlite.run(
       this.connectedDb,
-      `INSERT INTO ${this.constructor.TABLE_NAME} (${fields}) VALUES (${placeholders})`,
-      values,
+      `INSERT INTO ${this.constructor.TABLE_NAME} (content) VALUES (?)`,
+      [content],
     );
   }
 }

@@ -39,6 +39,6 @@ export default class Memo {
   }
 
   async save() {
-    await this.#dataAccessObject.save({ content: this.#content });
+    await this.#dataAccessObject.save(this.#content);
   }
 }
