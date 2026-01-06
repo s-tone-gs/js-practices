@@ -7,14 +7,14 @@ export default class CommandLineArgumentParser {
   }
 
   get isListMode() {
-    return this.#args.l ? true : false;
+    return !!this.#args.l;
   }
 
   get isReferenceMode() {
-    return this.#args.r ? true : false;
+    return !!this.#args.r;
   }
 
   get isDestroyMode() {
-    return this.#args.d ? true : false;
+    return !!this.#args.d;
   }
 }
