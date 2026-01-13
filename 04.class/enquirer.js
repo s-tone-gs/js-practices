@@ -2,8 +2,6 @@ import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 import enquirer from "enquirer";
 
-const { Select } = enquirer;
-
 export async function promptMultiLineText() {
   const rl = readline.createInterface({ input, output });
   let content;
@@ -38,7 +36,7 @@ export async function runMemoSelector(memos, name, message) {
     value: memo,
   }));
 
-  const selector = new Select({
+  const selector = new enquirer.Select({
     name,
     message,
     choices,
