@@ -42,6 +42,9 @@ export async function runMemoSelector(memos, name, message) {
     name,
     message,
     choices,
+    format() {
+      return this.focused.message;
+    },
   });
 
   try {
