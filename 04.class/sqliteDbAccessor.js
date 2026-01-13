@@ -1,4 +1,5 @@
 import * as Sqlite from "./sqlite.js";
+import Memo from "./memoClass.js";
 
 export default class SqliteDbAccessor {
   static TABLE_NAME = "memos";
@@ -15,9 +16,16 @@ export default class SqliteDbAccessor {
   }
 
   async all() {
-    return await Sqlite.all(
+    const memos = await Sqlite.all(
       this.connectedDb,
       `SELECT * FROM ${this.constructor.TABLE_NAME} ORDER BY id ASC`,
+    );
+    return memos.map(
+      ({ id, content }) =>
+        new Memo({
+          content,
+          id,
+        }),
     );
   }
 

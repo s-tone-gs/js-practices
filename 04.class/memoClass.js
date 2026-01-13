@@ -1,17 +1,19 @@
 export default class Memo {
-  #dataAccessObject;
-  #content;
   #id;
+  #content;
 
-  constructor({ dataAccessObject, id, content }) {
-    this.#dataAccessObject = dataAccessObject;
-    this.#content = content;
+  constructor({ id, content }) {
     this.#id = id;
+    this.#content = content;
   }
 
   get firstLine() {
     const lines = this.#content.split("\n");
     return lines[0];
+  }
+
+  get id() {
+    return this.#id;
   }
 
   get content() {
@@ -20,25 +22,5 @@ export default class Memo {
 
   set content(content) {
     this.#content = content;
-  }
-
-  static async all(dataAccessObject) {
-    const memos = await dataAccessObject.all();
-    return memos.map(
-      (memo) =>
-        new this({
-          dataAccessObject,
-          content: memo.content,
-          id: memo.id,
-        }),
-    );
-  }
-
-  async destroy() {
-    await this.#dataAccessObject.destroy(this.#id);
-  }
-
-  async save() {
-    await this.#dataAccessObject.save(this.#content);
   }
 }

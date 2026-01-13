@@ -12,28 +12,27 @@ await dataAccessObject.ensureTableExists();
 const argumentParser = new CommandLineArgumentParser();
 
 async function list() {
-  const memos = await Memo.all(dataAccessObject);
+  const memos = await dataAccessObject.all();
   MemoView.list(memos);
 }
 
 async function create() {
   const memoFields = await MemoView.create();
   const newMemo = new Memo({
-    dataAccessObject,
     ...memoFields,
   });
-  newMemo.save();
+  dataAccessObject.save(newMemo.content);
 }
 
 async function show() {
-  const memos = await Memo.all(dataAccessObject);
+  const memos = await dataAccessObject.all();
   await MemoView.show(memos);
 }
 
 async function destroy() {
-  const memos = await Memo.all(dataAccessObject);
+  const memos = await dataAccessObject.all();
   const memo = await MemoView.destroy(memos);
-  memo.destroy();
+  dataAccessObject.destroy(memo.id);
 }
 
 function main() {
