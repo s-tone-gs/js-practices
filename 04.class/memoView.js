@@ -1,11 +1,11 @@
-import { requireMultiLineText, runMemoSelector } from "./enquirer.js";
+import { promptMultiLineText, runMemoSelector } from "./enquirer.js";
 
 export function list(memos) {
   memos.map((memo) => console.log(memo.firstLine));
 }
 
 export async function create() {
-  const content = await requireMultiLineText();
+  const content = await promptMultiLineText();
   return { content };
 }
 

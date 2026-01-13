@@ -4,7 +4,7 @@ import enquirer from "enquirer";
 
 const { Select } = enquirer;
 
-export async function requireMultiLineText() {
+export async function promptMultiLineText() {
   const rl = readline.createInterface({ input, output });
   let content;
   try {
