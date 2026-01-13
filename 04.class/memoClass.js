@@ -18,8 +18,8 @@ export default class Memo {
     return this.#content;
   }
 
-  set content(text) {
-    this.#content = text;
+  set content(content) {
+    this.#content = content;
   }
 
   static async all(dataAccessObject) {
