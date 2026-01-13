@@ -1,10 +1,7 @@
 import { requireMultiLineText, runMemoSelector } from "./enquirer.js";
 
 export function list(memos) {
-  const firstLines = memos.map((memo) => memo.firstLine).join("\n");
-  if (firstLines) {
-    console.log(firstLines);
-  }
+  memos.map((memo) => console.log(memo.firstLine));
 }
 
 export async function create() {
