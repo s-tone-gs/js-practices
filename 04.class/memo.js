@@ -8,7 +8,7 @@ import { connectSqlite } from "./sqlite.js";
 
 const connectedDb = await connectSqlite();
 const dataAccessObject = new SqliteDbAccessor(connectedDb);
-dataAccessObject.ensureTableExists();
+await dataAccessObject.ensureTableExists();
 const argumentParser = new CommandLineArgumentParser();
 
 async function list() {
