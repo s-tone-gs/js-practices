@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-import * as MemoView from "./memoView.js";
+import * as memoView from "./memoView.js";
 import Memo from "./memoClass.js";
 import MemoOption from "./memoOption.js";
 import SqliteDbAccessor from "./sqliteDbAccessor.js";
@@ -13,11 +13,11 @@ const option = new MemoOption();
 
 async function list() {
   const memos = await dataAccessObject.all();
-  MemoView.list(memos);
+  memoView.list(memos);
 }
 
 async function create() {
-  const memoFields = await MemoView.create();
+  const memoFields = await memoView.create();
   const newMemo = new Memo({
     ...memoFields,
   });
@@ -26,12 +26,12 @@ async function create() {
 
 async function show() {
   const memos = await dataAccessObject.all();
-  await MemoView.show(memos);
+  await memoView.show(memos);
 }
 
 async function destroy() {
   const memos = await dataAccessObject.all();
-  const memo = await MemoView.destroy(memos);
+  const memo = await memoView.destroy(memos);
   dataAccessObject.destroy(memo.id);
 }
 
