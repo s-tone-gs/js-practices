@@ -17,7 +17,7 @@ export default class SqliteDbAccessor {
   async all() {
     return await Sqlite.all(
       this.connectedDb,
-      `SELECT * FROM ${this.constructor.TABLE_NAME}`,
+      `SELECT * FROM ${this.constructor.TABLE_NAME} ORDER BY id ASC`,
     );
   }
 
