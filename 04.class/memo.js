@@ -2,14 +2,14 @@
 
 import * as MemoView from "./memoView.js";
 import Memo from "./memoClass.js";
-import CommandLineArgumentParser from "./commandLineArgumentParser.js";
+import MemoOption from "./memoOption.js";
 import SqliteDbAccessor from "./sqliteDbAccessor.js";
 import { connectSqlite } from "./sqlite.js";
 
 const connectedDb = await connectSqlite();
 const dataAccessObject = new SqliteDbAccessor(connectedDb);
 await dataAccessObject.ensureTableExists();
-const argumentParser = new CommandLineArgumentParser();
+const option = new MemoOption();
 
 async function list() {
   const memos = await dataAccessObject.all();
@@ -36,11 +36,11 @@ async function destroy() {
 }
 
 function main() {
-  if (argumentParser.isListMode) {
+  if (option.isList) {
     list();
-  } else if (argumentParser.isReferenceMode) {
+  } else if (option.isReference) {
     show();
-  } else if (argumentParser.isDestroyMode) {
+  } else if (option.isDelete) {
     destroy();
   } else {
     create();

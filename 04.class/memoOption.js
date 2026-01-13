@@ -1,20 +1,21 @@
 import minimist from "minimist";
 
-export default class CommandLineArgumentParser {
+export default class MemoOption {
   #args;
+
   constructor() {
     this.#args = minimist(process.argv.slice(2));
   }
 
-  get isListMode() {
+  get isList() {
     return !!this.#args.l;
   }
 
-  get isReferenceMode() {
+  get isReference() {
     return !!this.#args.r;
   }
 
-  get isDestroyMode() {
+  get isDelete() {
     return !!this.#args.d;
   }
 }
