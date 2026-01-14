@@ -4,7 +4,7 @@ export function list(memos) {
   memos.map((memo) => console.log(memo.firstLine));
 }
 
-export async function create() {
+export async function fillOut() {
   const content = await promptMultiLineText();
   return { content };
 }
@@ -18,7 +18,7 @@ export async function show(memos) {
   console.log(memo.content);
 }
 
-export async function destroy(memos) {
+export async function selectTrash(memos) {
   return await runMemoSelector(
     memos,
     "deletion",

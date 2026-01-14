@@ -17,7 +17,7 @@ async function list() {
 }
 
 async function create() {
-  const memoFields = await memoView.create();
+  const memoFields = await memoView.fillOut();
   const newMemo = new Memo({
     ...memoFields,
   });
@@ -31,8 +31,8 @@ async function show() {
 
 async function destroy() {
   const memos = await dataAccessObject.all();
-  const memo = await memoView.destroy(memos);
-  dataAccessObject.destroy(memo.id);
+  const trashMemo = await memoView.selectTrash(memos);
+  dataAccessObject.destroy(trashMemo.id);
 }
 
 function main() {
