@@ -2,14 +2,14 @@
 
 import * as memoView from "./memoView.js";
 import Memo from "./memoClass.js";
-import MemoOption from "./memoOption.js";
+import Option from "./option.js";
 import SqliteDbAccessor from "./sqliteDbAccessor.js";
 import { connectSqlite } from "./sqlite.js";
 
 const connectedDb = await connectSqlite();
 const dataAccessObject = new SqliteDbAccessor(connectedDb);
 await dataAccessObject.ensureTableExists();
-const option = new MemoOption();
+const option = new Option();
 
 async function list() {
   const memos = await dataAccessObject.all();
