@@ -3,7 +3,7 @@
 import * as memoView from "./memoView.js";
 import Memo from "./memoClass.js";
 import Option from "./option.js";
-import SqliteDbAccessor from "./sqliteDbAccessor.js";
+import MemoDbAccessor from "./memoDbAccessor.js";
 import { connectSqlite } from "./sqlite.js";
 
 async function list() {
@@ -59,7 +59,7 @@ async function main() {
 }
 
 const connectedDb = await connectSqlite();
-const dataAccessObject = new SqliteDbAccessor(connectedDb);
+const dataAccessObject = new MemoDbAccessor(connectedDb);
 await dataAccessObject.ensureTableExists();
 const option = new Option();
 main();
