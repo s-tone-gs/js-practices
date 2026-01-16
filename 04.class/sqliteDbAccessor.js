@@ -1,4 +1,4 @@
-import * as Sqlite from "./sqlite.js";
+import * as Sqlite from "./sqliteWrapper.js.js";
 import Memo from "./memoClass.js";
 
 export default class SqliteDbAccessor {
