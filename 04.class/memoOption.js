@@ -1,6 +1,6 @@
 import minimist from "minimist";
 
-export default class Option {
+export default class MemoOption {
   #args;
 
   constructor() {

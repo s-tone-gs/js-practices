@@ -2,7 +2,7 @@
 
 import * as memoView from "./memoView.js";
 import Memo from "./memoClass.js";
-import Option from "./option.js";
+import MemoOption from "./memoOption.js";
 import MemoDbAccessor from "./memoDbAccessor.js";
 import { connectSqlite } from "./sqliteWrapper.js";
 
@@ -61,5 +61,5 @@ async function main() {
 const connectedDb = await connectSqlite();
 const dataAccessObject = new MemoDbAccessor(connectedDb);
 await dataAccessObject.ensureTableExists();
-const option = new Option();
+const option = new MemoOption();
 main();
