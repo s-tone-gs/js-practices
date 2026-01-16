@@ -4,7 +4,7 @@ import * as memoView from "./memoView.js";
 import Memo from "./memoClass.js";
 import Option from "./option.js";
 import MemoDbAccessor from "./memoDbAccessor.js";
-import { connectSqlite } from "./sqlite.js";
+import { connectSqlite } from "./sqliteWrapper.js";
 
 async function list() {
   const memos = await dataAccessObject.all();
