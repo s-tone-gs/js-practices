@@ -2,7 +2,7 @@
 
 import * as memoView from "./memoView.js";
 import Memo from "./memoClass.js";
-import MemoOption from "./memoOption.js";
+import OptionFlag from "./optionFlag.js";
 import MemoDbAccessor from "./memoDbAccessor.js";
 import { connectSqlite } from "./sqliteWrapper.js";
 
@@ -39,12 +39,12 @@ async function destroy() {
 }
 
 async function main() {
-  if (option.isList) return await list();
+  if (optionFlag.isList) return await list();
 
   try {
-    if (option.isReference) return await show();
+    if (optionFlag.isReference) return await show();
 
-    if (option.isDelete) return await destroy();
+    if (optionFlag.isDelete) return await destroy();
 
     await create();
   } catch (err) {
@@ -61,5 +61,5 @@ async function main() {
 const connectedDb = await connectSqlite();
 const dataAccessObject = new MemoDbAccessor(connectedDb);
 await dataAccessObject.ensureTableExists();
-const option = new MemoOption();
+const optionFlag = new OptionFlag();
 main();
