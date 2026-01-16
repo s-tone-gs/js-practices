@@ -1,4 +1,4 @@
-import { promptMultiLineText, runMemoSelector } from "./prompter.js";
+import { promptMultiLineText, promptMemoSelection } from "./prompter.js";
 
 export function list(memos) {
   memos.map((memo) => console.log(memo.firstLine));
@@ -10,7 +10,7 @@ export async function fillOut() {
 }
 
 export async function show(memos) {
-  const memo = await runMemoSelector(
+  const memo = await promptMemoSelection(
     memos,
     "references",
     "参照したいメモを選択してください",
@@ -19,7 +19,7 @@ export async function show(memos) {
 }
 
 export async function selectTrash(memos) {
-  return await runMemoSelector(
+  return await promptMemoSelection(
     memos,
     "deletion",
     "削除したいメモを選択してください",

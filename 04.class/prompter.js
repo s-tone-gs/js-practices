@@ -15,7 +15,7 @@ export async function promptMultiLineText() {
   });
 }
 
-export async function runMemoSelector(memos, name, message) {
+export async function promptMemoSelection(memos, name, message) {
   const choices = memos.map((memo) => ({
     message: memo.firstLine,
     value: memo,
