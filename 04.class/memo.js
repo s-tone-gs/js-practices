@@ -58,7 +58,7 @@ async function main() {
   }
 }
 
-const connectedDb = await connectSqlite();
+const connectedDb = await connectSqlite("memoStore.sqlite");
 const dataAccessObject = new MemoDbAccessor(connectedDb);
 await dataAccessObject.ensureTableExists();
 const optionFlag = new OptionFlag();
