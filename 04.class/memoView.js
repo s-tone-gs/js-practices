@@ -1,4 +1,4 @@
-import { promptMultiLineText, runMemoSelector } from "./enquirer.js";
+import { promptMultiLineText, runMemoSelector } from "./prompter.js";
 
 export function list(memos) {
   memos.map((memo) => console.log(memo.firstLine));
