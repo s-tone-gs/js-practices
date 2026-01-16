@@ -6,11 +6,6 @@ import Option from "./option.js";
 import SqliteDbAccessor from "./sqliteDbAccessor.js";
 import { connectSqlite } from "./sqlite.js";
 
-const connectedDb = await connectSqlite();
-const dataAccessObject = new SqliteDbAccessor(connectedDb);
-await dataAccessObject.ensureTableExists();
-const option = new Option();
-
 async function list() {
   const memos = await dataAccessObject.all();
   memoView.list(memos);
@@ -62,4 +57,9 @@ async function main() {
     throw err;
   }
 }
+
+const connectedDb = await connectSqlite();
+const dataAccessObject = new SqliteDbAccessor(connectedDb);
+await dataAccessObject.ensureTableExists();
+const option = new Option();
 main();
