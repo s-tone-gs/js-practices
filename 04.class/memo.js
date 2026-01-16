@@ -26,24 +26,40 @@ async function create() {
 
 async function show() {
   const memos = await dataAccessObject.all();
+  if (memos.length === 0) {
+    console.log("メモがありません");
+    return;
+  }
   await memoView.show(memos);
 }
 
 async function destroy() {
   const memos = await dataAccessObject.all();
+  if (memos.length === 0) {
+    console.log("メモがありません");
+    return;
+  }
   const trashMemo = await memoView.selectTrash(memos);
   dataAccessObject.destroy(trashMemo.id);
 }
 
-function main() {
-  if (option.isList) {
-    list();
-  } else if (option.isReference) {
-    show();
-  } else if (option.isDelete) {
-    destroy();
-  } else {
-    create();
+async function main() {
+  if (option.isList) return await list();
+
+  try {
+    if (option.isReference) return await show();
+
+    if (option.isDelete) return await destroy();
+
+    await create();
+  } catch (err) {
+    if (err instanceof Error && err.code === "ABORT_ERR")
+      return console.log("テキスト入力を中断しました。");
+
+    if (err instanceof Error && err.cause === "USER_CANCELLED")
+      return console.log(err.message);
+
+    throw err;
   }
 }
 main();
