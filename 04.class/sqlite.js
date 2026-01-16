@@ -2,8 +2,8 @@ import sqlite3 from "sqlite3";
 
 const FILE_NAME = "memoStore.sqlite";
 
-export async function connectSqlite() {
-  return await new Promise((resolve, reject) => {
+export function connectSqlite() {
+  return new Promise((resolve, reject) => {
     const db = new sqlite3.Database(FILE_NAME, (err) => {
       if (err) {
         reject(err);
