@@ -1,7 +1,7 @@
 import { promptMultiLineText, promptMemoSelection } from "./prompter.js";
 
 export function list(memos) {
-  memos.map((memo) => console.log(memo.firstLine));
+  memos.forEach((memo) => console.log(memo.firstLine));
 }
 
 export async function fillOut() {
