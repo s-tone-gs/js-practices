@@ -1,4 +1,4 @@
-import * as sqlite from "./sqliteWrapper.js";
+import * as sqliteWrapper from "./sqliteWrapper.js";
 import Memo from "./memoClass.js";
 
 export default class MemoDbAccessor {
@@ -9,14 +9,14 @@ export default class MemoDbAccessor {
   }
 
   async ensureTableExists() {
-    await sqlite.run(
+    await sqliteWrapper.run(
       this.connectedDb,
       `CREATE TABLE IF NOT EXISTS ${this.constructor.TABLE_NAME} (id INTEGER PRIMARY KEY, content text NOT NULL)`,
     );
   }
 
   async all() {
-    const memos = await sqlite.all(
+    const memos = await sqliteWrapper.all(
       this.connectedDb,
       `SELECT * FROM ${this.constructor.TABLE_NAME} ORDER BY id ASC`,
     );
@@ -30,7 +30,7 @@ export default class MemoDbAccessor {
   }
 
   async destroy(id) {
-    await sqlite.run(
+    await sqliteWrapper.run(
       this.connectedDb,
       `DELETE FROM ${this.constructor.TABLE_NAME} WHERE id = ?`,
       [id],
@@ -38,7 +38,7 @@ export default class MemoDbAccessor {
   }
 
   async save(content) {
-    await sqlite.run(
+    await sqliteWrapper.run(
       this.connectedDb,
       `INSERT INTO ${this.constructor.TABLE_NAME} (content) VALUES (?)`,
       [content],
