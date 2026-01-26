@@ -22,8 +22,8 @@ export default class MemoDbAccessor {
     return memos.map(
       ({ id, content }) =>
         new Memo({
-          content,
           id,
+          content,
         }),
     );
   }
