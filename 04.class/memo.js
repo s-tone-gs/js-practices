@@ -44,20 +44,26 @@ async function main() {
   await memoDbAccessor.ensureTableExists();
   const optionFlag = new OptionFlag();
 
-  if (optionFlag.isList) return await list(memoDbAccessor);
-
   try {
-    if (optionFlag.isReference) return await show(memoDbAccessor);
-
-    if (optionFlag.isDelete) return await destroy(memoDbAccessor);
-
-    await create(memoDbAccessor);
+    if (optionFlag.isList) {
+      await list(memoDbAccessor);
+    } else if (optionFlag.isReference) {
+      await show(memoDbAccessor);
+    } else if (optionFlag.isDelete) {
+      await destroy(memoDbAccessor);
+    } else {
+      await create(memoDbAccessor);
+    }
   } catch (err) {
-    if (err instanceof Error && err.code === "ABORT_ERR")
-      return console.log("テキスト入力を中断しました。");
+    if (err instanceof Error && err.code === "ABORT_ERR") {
+      console.log("テキスト入力を中断しました。");
+      return;
+    }
 
-    if (err instanceof Error && err.cause === "USER_CANCELLED")
-      return console.log(err.message);
+    if (err instanceof Error && err.cause === "USER_CANCELLED") {
+      console.log(err.message);
+      return;
+    }
 
     throw err;
   }
