@@ -4,7 +4,7 @@ import * as memoView from "./memoView.js";
 import Memo from "./memoClass.js";
 import MemoOptionFlag from "./memoOptionFlag.js";
 import MemoDbAccessor from "./memoDbAccessor.js";
-import { connectSqlite } from "./sqliteWrapper.js";
+import { connect } from "./sqliteWrapper.js";
 
 async function list(memoDbAccessor) {
   const memos = await memoDbAccessor.all();
@@ -39,7 +39,7 @@ async function destroy(memoDbAccessor) {
 }
 
 async function main() {
-  const connectedDb = await connectSqlite("memoStore.sqlite");
+  const connectedDb = await connect("memoStore.sqlite");
   const memoDbAccessor = new MemoDbAccessor(connectedDb);
   await memoDbAccessor.ensureTableExists();
   const memoOptionFlag = new MemoOptionFlag();
