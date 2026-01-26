@@ -6,21 +6,21 @@ import OptionFlag from "./optionFlag.js";
 import MemoDbAccessor from "./memoDbAccessor.js";
 import { connectSqlite } from "./sqliteWrapper.js";
 
-async function list(dataAccessObject) {
-  const memos = await dataAccessObject.all();
+async function list(memoDbAccessor) {
+  const memos = await memoDbAccessor.all();
   memoView.list(memos);
 }
 
-async function create(dataAccessObject) {
+async function create(memoDbAccessor) {
   const memoFields = await memoView.fillOut();
   const newMemo = new Memo({
     ...memoFields,
   });
-  dataAccessObject.save(newMemo.content);
+  memoDbAccessor.save(newMemo.content);
 }
 
-async function show(dataAccessObject) {
-  const memos = await dataAccessObject.all();
+async function show(memoDbAccessor) {
+  const memos = await memoDbAccessor.all();
   if (memos.length === 0) {
     console.log("メモがありません");
     return;
@@ -28,30 +28,30 @@ async function show(dataAccessObject) {
   await memoView.show(memos);
 }
 
-async function destroy(dataAccessObject) {
-  const memos = await dataAccessObject.all();
+async function destroy(memoDbAccessor) {
+  const memos = await memoDbAccessor.all();
   if (memos.length === 0) {
     console.log("メモがありません");
     return;
   }
   const trashMemo = await memoView.selectTrash(memos);
-  dataAccessObject.destroy(trashMemo.id);
+  memoDbAccessor.destroy(trashMemo.id);
 }
 
 async function main() {
   const connectedDb = await connectSqlite("memoStore.sqlite");
-  const dataAccessObject = new MemoDbAccessor(connectedDb);
-  await dataAccessObject.ensureTableExists();
+  const memoDbAccessor = new MemoDbAccessor(connectedDb);
+  await memoDbAccessor.ensureTableExists();
   const optionFlag = new OptionFlag();
 
-  if (optionFlag.isList) return await list(dataAccessObject);
+  if (optionFlag.isList) return await list(memoDbAccessor);
 
   try {
-    if (optionFlag.isReference) return await show(dataAccessObject);
+    if (optionFlag.isReference) return await show(memoDbAccessor);
 
-    if (optionFlag.isDelete) return await destroy(dataAccessObject);
+    if (optionFlag.isDelete) return await destroy(memoDbAccessor);
 
-    await create(dataAccessObject);
+    await create(memoDbAccessor);
   } catch (err) {
     if (err instanceof Error && err.code === "ABORT_ERR")
       return console.log("テキスト入力を中断しました。");
