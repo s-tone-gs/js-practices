@@ -2,7 +2,7 @@
 
 import * as memoView from "./memoView.js";
 import Memo from "./memoClass.js";
-import OptionFlag from "./optionFlag.js";
+import MemoOptionFlag from "./memoOptionFlag.js";
 import MemoDbAccessor from "./memoDbAccessor.js";
 import { connectSqlite } from "./sqliteWrapper.js";
 
@@ -42,14 +42,14 @@ async function main() {
   const connectedDb = await connectSqlite("memoStore.sqlite");
   const memoDbAccessor = new MemoDbAccessor(connectedDb);
   await memoDbAccessor.ensureTableExists();
-  const optionFlag = new OptionFlag();
+  const memoOptionFlag = new MemoOptionFlag();
 
   try {
-    if (optionFlag.isList) {
+    if (memoOptionFlag.isList) {
       await list(memoDbAccessor);
-    } else if (optionFlag.isReference) {
+    } else if (memoOptionFlag.isReference) {
       await show(memoDbAccessor);
-    } else if (optionFlag.isDelete) {
+    } else if (memoOptionFlag.isDelete) {
       await destroy(memoDbAccessor);
     } else {
       await create(memoDbAccessor);
