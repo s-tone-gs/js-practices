@@ -19,8 +19,4 @@ export default class Memo {
   get content() {
     return this.#content;
   }
-
-  set content(content) {
-    this.#content = content;
-  }
 }
