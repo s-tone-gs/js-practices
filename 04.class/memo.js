@@ -6,12 +6,12 @@ import OptionFlag from "./optionFlag.js";
 import MemoDbAccessor from "./memoDbAccessor.js";
 import { connectSqlite } from "./sqliteWrapper.js";
 
-async function list() {
+async function list(dataAccessObject) {
   const memos = await dataAccessObject.all();
   memoView.list(memos);
 }
 
-async function create() {
+async function create(dataAccessObject) {
   const memoFields = await memoView.fillOut();
   const newMemo = new Memo({
     ...memoFields,
@@ -19,7 +19,7 @@ async function create() {
   dataAccessObject.save(newMemo.content);
 }
 
-async function show() {
+async function show(dataAccessObject) {
   const memos = await dataAccessObject.all();
   if (memos.length === 0) {
     console.log("メモがありません");
@@ -28,7 +28,7 @@ async function show() {
   await memoView.show(memos);
 }
 
-async function destroy() {
+async function destroy(dataAccessObject) {
   const memos = await dataAccessObject.all();
   if (memos.length === 0) {
     console.log("メモがありません");
@@ -39,14 +39,19 @@ async function destroy() {
 }
 
 async function main() {
-  if (optionFlag.isList) return await list();
+  const connectedDb = await connectSqlite("memoStore.sqlite");
+  const dataAccessObject = new MemoDbAccessor(connectedDb);
+  await dataAccessObject.ensureTableExists();
+  const optionFlag = new OptionFlag();
+
+  if (optionFlag.isList) return await list(dataAccessObject);
 
   try {
-    if (optionFlag.isReference) return await show();
+    if (optionFlag.isReference) return await show(dataAccessObject);
 
-    if (optionFlag.isDelete) return await destroy();
+    if (optionFlag.isDelete) return await destroy(dataAccessObject);
 
-    await create();
+    await create(dataAccessObject);
   } catch (err) {
     if (err instanceof Error && err.code === "ABORT_ERR")
       return console.log("テキスト入力を中断しました。");
@@ -58,8 +63,4 @@ async function main() {
   }
 }
 
-const connectedDb = await connectSqlite("memoStore.sqlite");
-const dataAccessObject = new MemoDbAccessor(connectedDb);
-await dataAccessObject.ensureTableExists();
-const optionFlag = new OptionFlag();
 main();
