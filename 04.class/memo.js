@@ -12,7 +12,7 @@ async function list(memoDbAccessor) {
 }
 
 async function create(memoDbAccessor) {
-  const memoFields = await memoView.fillOut();
+  const memoFields = await memoView.writeMemo();
   const newMemo = new Memo({
     ...memoFields,
   });

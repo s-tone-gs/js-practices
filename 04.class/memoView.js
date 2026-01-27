@@ -6,7 +6,7 @@ export function list(memos) {
   });
 }
 
-export async function fillOut() {
+export async function writeMemo() {
   const content = await promptMultiLineText();
   return { content };
 }
