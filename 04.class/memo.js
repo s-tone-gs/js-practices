@@ -34,8 +34,8 @@ async function destroy(memoDbAccessor) {
     console.log("メモがありません");
     return;
   }
-  const trashMemo = await memoView.selectTrash(memos);
-  memoDbAccessor.destroy(trashMemo.id);
+  const memo = await memoView.selectMemoToDelete(memos);
+  memoDbAccessor.destroy(memo.id);
 }
 
 async function main() {

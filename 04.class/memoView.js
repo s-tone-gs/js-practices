@@ -20,7 +20,7 @@ export async function show(memos) {
   console.log(memo.content);
 }
 
-export async function selectTrash(memos) {
+export async function selectMemoToDelete(memos) {
   return await promptMemoSelection(
     memos,
     "deletion",
