@@ -1,7 +1,6 @@
 #! /usr/bin/env node
 
 import * as memoView from "./memoView.js";
-import Memo from "./memoClass.js";
 import MemoOptionFlag from "./memoOptionFlag.js";
 import MemoDbAccessor from "./memoDbAccessor.js";
 import { connect } from "./sqliteWrapper.js";
@@ -14,10 +13,7 @@ async function listMemo(memoDbAccessor) {
 
 async function createMemo(memoDbAccessor) {
   const content = await promptMultiLineText();
-  const newMemo = new Memo({
-    content,
-  });
-  memoDbAccessor.save(newMemo.content);
+  memoDbAccessor.save(content);
 }
 
 async function showMemo(memoDbAccessor) {
