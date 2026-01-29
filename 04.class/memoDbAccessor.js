@@ -22,13 +22,7 @@ export default class MemoDbAccessor {
       this.#connectedDb,
       `SELECT * FROM ${this.#tableName} ORDER BY id ASC`,
     );
-    return memos.map(
-      ({ id, content }) =>
-        new Memo({
-          id,
-          content,
-        }),
-    );
+    return memos.map(({ id, content }) => new Memo(id, content));
   }
 
   async delete(id) {
