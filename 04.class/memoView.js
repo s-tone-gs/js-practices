@@ -1,14 +1,9 @@
-import { promptMultiLineText, promptMemoSelection } from "./prompter.js";
+import { promptMemoSelection } from "./prompter.js";
 
 export function list(memos) {
   memos.forEach((memo) => {
     console.log(memo.firstLine);
   });
-}
-
-export async function writeMemo() {
-  const content = await promptMultiLineText();
-  return { content };
 }
 
 export async function show(memos) {

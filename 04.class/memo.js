@@ -5,6 +5,7 @@ import Memo from "./memoClass.js";
 import MemoOptionFlag from "./memoOptionFlag.js";
 import MemoDbAccessor from "./memoDbAccessor.js";
 import { connect } from "./sqliteWrapper.js";
+import { promptMultiLineText } from "./prompter.js";
 
 async function listMemo(memoDbAccessor) {
   const memos = await memoDbAccessor.all();
@@ -12,9 +13,9 @@ async function listMemo(memoDbAccessor) {
 }
 
 async function createMemo(memoDbAccessor) {
-  const memoFields = await memoView.writeMemo();
+  const content = await promptMultiLineText();
   const newMemo = new Memo({
-    ...memoFields,
+    content,
   });
   memoDbAccessor.save(newMemo.content);
 }
