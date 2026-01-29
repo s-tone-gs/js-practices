@@ -9,7 +9,7 @@ import { promptMultiLineText } from "./prompter.js";
 
 async function listMemo(memoDbAccessor) {
   const memos = await memoDbAccessor.all();
-  memoView.list(memos);
+  memoView.listFirstLines(memos);
 }
 
 async function createMemo(memoDbAccessor) {
@@ -26,7 +26,7 @@ async function showMemo(memoDbAccessor) {
     console.log("メモがありません");
     return;
   }
-  await memoView.show(memos);
+  await memoView.showContent(memos);
 }
 
 async function deleteMemo(memoDbAccessor) {

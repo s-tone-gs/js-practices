@@ -1,12 +1,12 @@
 import { promptMemoSelection } from "./prompter.js";
 
-export function list(memos) {
+export function listFirstLines(memos) {
   memos.forEach((memo) => {
     console.log(memo.firstLine);
   });
 }
 
-export async function show(memos) {
+export async function showContent(memos) {
   const memo = await promptMemoSelection(
     memos,
     "references",
