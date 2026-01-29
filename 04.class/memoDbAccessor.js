@@ -28,7 +28,7 @@ export default class MemoDbAccessor {
     );
   }
 
-  async destroy(id) {
+  async delete(id) {
     await sqliteWrapper.run(
       this.connectedDb,
       `DELETE FROM ${this.tableName} WHERE id = ?`,

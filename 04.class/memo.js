@@ -6,12 +6,12 @@ import MemoOptionFlag from "./memoOptionFlag.js";
 import MemoDbAccessor from "./memoDbAccessor.js";
 import { connect } from "./sqliteWrapper.js";
 
-async function list(memoDbAccessor) {
+async function listMemo(memoDbAccessor) {
   const memos = await memoDbAccessor.all();
   memoView.list(memos);
 }
 
-async function create(memoDbAccessor) {
+async function createMemo(memoDbAccessor) {
   const memoFields = await memoView.writeMemo();
   const newMemo = new Memo({
     ...memoFields,
@@ -19,7 +19,7 @@ async function create(memoDbAccessor) {
   memoDbAccessor.save(newMemo.content);
 }
 
-async function show(memoDbAccessor) {
+async function showMemo(memoDbAccessor) {
   const memos = await memoDbAccessor.all();
   if (memos.length === 0) {
     console.log("メモがありません");
@@ -28,14 +28,14 @@ async function show(memoDbAccessor) {
   await memoView.show(memos);
 }
 
-async function destroy(memoDbAccessor) {
+async function deleteMemo(memoDbAccessor) {
   const memos = await memoDbAccessor.all();
   if (memos.length === 0) {
     console.log("メモがありません");
     return;
   }
   const memo = await memoView.selectMemoToDelete(memos);
-  memoDbAccessor.destroy(memo.id);
+  memoDbAccessor.delete(memo.id);
 }
 
 async function main() {
@@ -46,13 +46,13 @@ async function main() {
 
   try {
     if (memoOptionFlag.isList) {
-      await list(memoDbAccessor);
+      await listMemo(memoDbAccessor);
     } else if (memoOptionFlag.isReference) {
-      await show(memoDbAccessor);
+      await showMemo(memoDbAccessor);
     } else if (memoOptionFlag.isDelete) {
-      await destroy(memoDbAccessor);
+      await deleteMemo(memoDbAccessor);
     } else {
-      await create(memoDbAccessor);
+      await createMemo(memoDbAccessor);
     }
   } catch (err) {
     if (err instanceof Error && err.code === "ABORT_ERR") {
