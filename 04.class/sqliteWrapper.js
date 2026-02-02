@@ -1,6 +1,6 @@
 import sqlite3 from "sqlite3";
 
-export function connect(fileName) {
+export function connectDatabase(fileName) {
   return new Promise((resolve, reject) => {
     const db = new sqlite3.Database(fileName, (err) => {
       if (err) {
