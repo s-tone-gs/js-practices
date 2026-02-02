@@ -22,7 +22,7 @@ async function showMemo(memoDbAccessor) {
     console.log("メモがありません");
     return;
   }
-  await memoView.showContent(memos);
+  await memoView.showSelectedMemoContent(memos);
 }
 
 async function deleteMemo(memoDbAccessor) {

@@ -6,7 +6,7 @@ export function listFirstLines(memos) {
   });
 }
 
-export async function showContent(memos) {
+export async function showSelectedMemoContent(memos) {
   const memo = await promptMemoSelection(
     memos,
     "references",
