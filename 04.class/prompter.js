@@ -1,10 +1,10 @@
 import * as readline from "node:readline/promises";
-import { stdin as input, stdout as output } from "node:process";
+import { stdin as input } from "node:process";
 import enquirer from "enquirer";
 
 export async function promptMultiLineText() {
-  const rl = readline.createInterface({ input, output });
-  let content = await rl.question("テキストを入力してください\n");
+  const rl = readline.createInterface({ input });
+  let content = await rl.question("");
   return new Promise((resolve) => {
     rl.on("line", (line) => {
       content += `\n${line}`;

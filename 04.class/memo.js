@@ -52,11 +52,6 @@ async function main() {
       await createMemo(memoDbAccessor);
     }
   } catch (err) {
-    if (err instanceof Error && err.code === "ABORT_ERR") {
-      console.log("テキスト入力を中断しました。");
-      return;
-    }
-
     if (err instanceof Error && err.cause === "USER_CANCELLED") {
       console.log(err.message);
       return;
