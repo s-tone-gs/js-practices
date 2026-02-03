@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 import * as memoView from "./memoView.js";
-import MemoOptionFlag from "./memoOptionFlag.js";
+import MemoAppOptionFlag from "./memoAppOptionFlag.js";
 import MemoDbAccessor from "./memoDbAccessor.js";
 import { connectDatabase } from "./sqliteWrapper.js";
 import { promptMultiLineText } from "./prompter.js";
@@ -39,14 +39,14 @@ async function main() {
   const connectedDb = await connectDatabase("memoStore.sqlite");
   const memoDbAccessor = new MemoDbAccessor(connectedDb);
   await memoDbAccessor.ensureTableExists();
-  const memoOptionFlag = new MemoOptionFlag();
+  const memoAppOptionFlag = new MemoAppOptionFlag();
 
   try {
-    if (memoOptionFlag.isList) {
+    if (memoAppOptionFlag.isList) {
       await listMemo(memoDbAccessor);
-    } else if (memoOptionFlag.isReference) {
+    } else if (memoAppOptionFlag.isReference) {
       await showMemo(memoDbAccessor);
-    } else if (memoOptionFlag.isDelete) {
+    } else if (memoAppOptionFlag.isDelete) {
       await deleteMemo(memoDbAccessor);
     } else {
       await createMemo(memoDbAccessor);
